@@ -1,0 +1,6 @@
+build/
+cli/target/
+.DS_Store
+*.dmg
+icon/AppIcon.iconset/
+*.zip

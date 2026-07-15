@@ -1,0 +1,21 @@
+{
+  "input": {
+    "partitions": [
+      {"number": 1, "code": "QZPYQ", "display_name": "青洲", "full_label": "QZPYQ(青洲)", "lake_ids": ["G1", "G2"], "areas": [10000.0, 20000.0]},
+      {"number": 2, "code": "DSPYQ", "display_name": "黛山", "full_label": "DSPYQ(黛山)", "lake_ids": ["G3"], "areas": [50000.0]}
+    ],
+    "rainfall": [
+      {"date": "2025/05/14", "values": {"青洲": 24.0, "黛山": 48.0}}
+    ],
+    "baseline_columns": ["G1", "G2", "G3"],
+    "baseline": [
+      {"datetime": "2025/05/14 0:00", "values": [1000.0, 2000.0, 3000.0]},
+      {"datetime": "2025/05/14 1:00", "values": [1000.0, 2000.0, 3000.0]}
+    ],
+    "users": [
+      {"user_name": "甲厂", "date": "2025/05/14", "daily_intake": 72.0, "hourly_intake": 3.0}
+    ],
+    "user_lake_map": {"甲厂": "G1"}
+  },
+  "steps": [1, 2, 3, 4, 5, 6]
+}
