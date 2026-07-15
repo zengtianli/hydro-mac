@@ -4,3 +4,4 @@ cli/target/
 *.dmg
 icon/AppIcon.iconset/
 *.zip
+catalog.yaml
