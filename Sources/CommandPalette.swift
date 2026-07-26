@@ -4,10 +4,7 @@ import AppKit
 // ═══════════════════════════════════════════════════════════════════════════
 // 共享命令面板 CommandPalette —— ⌘K 搜索定位 app 内功能
 //
-// SSOT(唯一真相)= ~/Dev/tools/dev/lib/tools/macapp/swift-shared/CommandPalette.swift
-//   各 app 的 Sources/CommandPalette.swift 是 vendored 副本(逐字节一致)。
-//   改动只改 SSOT,再跑 `swift-shared/vendor-palette.sh <app-dir>` 重新分发;
-//   禁就地改副本(drift 守卫 `vendor-palette.sh --check` 会红)。
+// 本文件是共享组件,可直接拷进其它 SwiftUI app 复用(零外部依赖,只用 SwiftUI + AppKit)。
 //
 // host 接入三步:
 //   1) 根视图加   .commandPalette(items: <[PaletteItem]>, isPresented: $showPalette)

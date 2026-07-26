@@ -1,7 +1,7 @@
 //! rainfall CLI 编排 —— 复刻自原 apps/rainfall/src-tauri/src/commands/{io,calc}.rs,去掉 #[tauri::command]。
 //! 纯函数,返回 serde 可序列化结果;main.rs 负责 JSON 解码/编码与 stdout。
 //! 与原版差异:TSV 解析拆成「内容级」函数(parse_*_content),文件读取只是薄壳 ——
-//! 这样 sample_data 能用 include_str! 内嵌示例(原版运行时读 ~/Dev/hydro-rainfall,路径已不存在)。
+//! 这样 sample_data 能用 include_str! 内嵌示例(原版运行时读一个外部数据目录(该路径已不存在))。
 use crate::rainfall::parser;
 use crate::rainfall::pipeline;
 use crate::rainfall::sample_data;

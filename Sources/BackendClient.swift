@@ -18,15 +18,32 @@ actor BackendClient {
         }
     }
 
-    /// hydro-cli 二进制定位:优先 .app/Contents/Resources/hydro-cli,开发期 fallback 到 cli/target/release。
+    /// hydro-cli 二进制定位,按序:
+    ///   1) .app/Contents/Resources/hydro-cli(发布形态,自包含)
+    ///   2) 环境变量 HYDRO_CLI_PATH(显式覆盖)
+    ///   3) 从可执行文件向上找本仓的 cli/target/release/hydro-cli(开发期:`cargo build --release` 后即可用)
     private func cliPath() throws -> String {
+        let fm = FileManager.default
         if let res = Bundle.main.resourceURL?.appendingPathComponent("hydro-cli").path,
-           FileManager.default.isExecutableFile(atPath: res) {
+           fm.isExecutableFile(atPath: res) {
             return res
         }
-        let dev = ("~/Dev/apps/desktop/hydro-mac/cli/target/release/hydro-cli" as NSString).expandingTildeInPath
-        if FileManager.default.isExecutableFile(atPath: dev) { return dev }
-        throw BackendError.notFound(dev)
+        if let env = ProcessInfo.processInfo.environment["HYDRO_CLI_PATH"],
+           fm.isExecutableFile(atPath: env) {
+            return env
+        }
+        // 向上回溯找仓根(含 cli/ 的那层),避免写死任何机器相关的绝对路径
+        var dir = URL(fileURLWithPath: Bundle.main.executablePath ?? CommandLine.arguments[0])
+            .resolvingSymlinksInPath()
+            .deletingLastPathComponent()
+        for _ in 0..<8 {
+            let candidate = dir.appendingPathComponent("cli/target/release/hydro-cli").path
+            if fm.isExecutableFile(atPath: candidate) { return candidate }
+            let parent = dir.deletingLastPathComponent()
+            if parent.path == dir.path { break }
+            dir = parent
+        }
+        throw BackendError.notFound("Resources/hydro-cli · $HYDRO_CLI_PATH · <repo>/cli/target/release/hydro-cli")
     }
 
     /// 无输入调用。

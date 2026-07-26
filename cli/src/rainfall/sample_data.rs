@@ -1,5 +1,5 @@
-//! rainfall 内嵌示例数据 —— 与原版差异:原版运行时读 ~/Dev/hydro-rainfall/data/sample(路径已不存在),
-//! 本版照 annual 模板 include_str! 内嵌(源 = ~/Dev/services/hydro-rainfall/data/sample,
+//! rainfall 内嵌示例数据 —— 与原版差异:原版运行时读一个外部数据目录(已不存在),
+//! 本版照 annual 模板 include_str! 内嵌(源 = 项目自带示例数据,
 //! input_YSH.txt 裁剪为前 10 个取水户的最小可跑集)。
 use crate::rainfall::commands;
 use crate::rainfall::parser;
