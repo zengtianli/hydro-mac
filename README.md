@@ -4,7 +4,7 @@
 
 原生 macOS 水利计算工具箱：**SwiftUI 前端 + Rust 计算后端**，单 .app 自包含，离线可用。
 
-> A native macOS toolbox for water-resources engineering: 8 calculators (annual water-resources report query, river pollutant-carrying capacity, water-efficiency assessment, reservoir dispatch, river-district dispatch, irrigation demand, rainfall pipeline, geocoding) built as a SwiftUI shell driving a vendored Rust CLI over a JSON contract. Apple Silicon, macOS 14+. All sample data is synthetic.
+> 原生 macOS 水利工程工具箱，提供 8 个计算器：水资源年报查询、河道纳污能力、水效评估、水库调度、河区调度、灌溉需水、降雨处理与地理编码。SwiftUI 界面通过 JSON 接口调用随应用分发的 Rust CLI，支持 Apple Silicon 与 macOS 14+；所有示例数据均为合成数据。
 
 ## 8 个计算器
 
@@ -61,12 +61,10 @@ bash scripts/golden-test.sh              # 20 case 数值回归(改任何 calc �
 
 系统要求：macOS 14+，Apple Silicon。
 
-## License
+## 许可
 
 [MIT](LICENSE)
 
-## Relationship to the private version
+## 与私有版本的关系
 
-This repo is a **one-way snapshot** of the author's private build. It is refreshed
-only when the private version cuts a release — day-to-day private commits are not
-mirrored, so this repo may lag behind at any given time. (Policy set 2026-08-10.)
+本仓库是作者私有版本的**单向快照**。仅在私有版本发布时更新；日常私有提交不会镜像到这里，因此本仓库可能落后于私有版本。（此规则于 2026-08-10 确定。）
