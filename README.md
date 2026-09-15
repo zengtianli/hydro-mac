@@ -1,5 +1,7 @@
 # 水利工具箱 HydroMac
 
+**中文** | [English](README_EN.md)
+
 原生 macOS 水利计算工具箱：**SwiftUI 前端 + Rust 计算后端**，单 .app 自包含，离线可用。
 
 > A native macOS toolbox for water-resources engineering: 8 calculators (annual water-resources report query, river pollutant-carrying capacity, water-efficiency assessment, reservoir dispatch, river-district dispatch, irrigation demand, rainfall pipeline, geocoding) built as a SwiftUI shell driving a vendored Rust CLI over a JSON contract. Apple Silicon, macOS 14+. All sample data is synthetic.
