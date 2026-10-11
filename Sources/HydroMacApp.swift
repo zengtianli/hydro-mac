@@ -4,10 +4,12 @@ import SwiftUI
 /// macOS 专属原生版;计算核 vendored 自作者上游 hydro 项目。
 @main
 struct HydroMacApp: App {
+    @NSApplicationDelegateAdaptor(LaneAppDelegate.self) private var laneDelegate
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .frame(minWidth: 900, minHeight: 600)
+                .onAppear { LaneSignal.ready("window"); LaneSignal.applyWindowFrame() }
         }
         .windowResizability(.contentSize)
         .defaultSize(width: 1180, height: 760)

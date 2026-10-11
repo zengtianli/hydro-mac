@@ -53,6 +53,7 @@ xcrun swiftc -O -parse-as-library -target arm64-apple-macosx14.0 \
   Sources/RainfallView.swift \
   Sources/GeocodeView.swift \
   Sources/ContentView.swift \
+  Sources/LaneSignal.swift \
   Sources/HydroMacApp.swift \
   -o "build/$APP_NAME"
 

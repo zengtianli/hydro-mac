@@ -1,0 +1,62 @@
+{
+  "product": "hydro-mac-oss",
+  "platform": "mac",
+  "version": "1.0.0 (8)",
+  "measured_at": "2026-10-12T00:27:47+08:00",
+  "device": "Mac18,5 / Apple M6 / macOS 27.2",
+  "size": {
+    "download_bytes": 2744249,
+    "installed_bytes": 6848512,
+    "download_sha256": "5f1f2bbf30f0a7e96e707033cabd988f18662465dc1267650c37a4fc1dfb5660",
+    "method": "public GitHub Release ZIP file size; local candidate .app allocated disk bytes via shared measure.size_of"
+  },
+  "idle": {
+    "footprint_mb": 33,
+    "main_footprint_mb": 33,
+    "cpu_pct": 0,
+    "main_cpu_pct": 0,
+    "processes": [
+      {
+        "pid": 96144,
+        "name": "main",
+        "cpu_pct": 0,
+        "footprint_peak_mb": 33
+      }
+    ],
+    "window_s": 60,
+    "settle_s": 45,
+    "method": "sim_lane.run_mac_quiet LSUIElement isolated copy; settle 45 s; shared measure.idle_with_helpers 60 s CPU, then 3 simultaneous phys_footprint samples",
+    "measured_at": "2026-10-12",
+    "memory_metric": "phys_footprint"
+  },
+  "speed_cli": [
+    {
+      "key": "annual_sample",
+      "label": "年报合成示例查询（含引擎进程启动）",
+      "label_en": "Annual sample query including engine process startup",
+      "median_ms": 4.378,
+      "runs": 10,
+      "headline": true,
+      "method": "hyperfine 2.0.0 time_wall_clock seconds, 10 runs median; all exit codes 0"
+    }
+  ],
+  "data": "运行资源为本地源码验收构建，不代表当前公开 Release v1.0.0 的运行性能；下载体积单独读取该公开包。示例数据为包内合成数据。",
+  "data_en": "Runtime figures describe a local source acceptance build and do not represent the public v1.0.0 release. Download bytes are measured separately from that public archive. Sample data is synthetic.",
+  "measurement_scope": "local acceptance build; public archive size recorded separately",
+  "measured_artifact": {
+    "version": "1.0.0",
+    "build": "8",
+    "executable_sha256": "a3dbdd19209bd2aac691d5fc9b970442e9980aca534d092bc553976529227f4b"
+  },
+  "runtime_measurement": {
+    "environment": "native",
+    "evidence": "perf/raw/lintel-performance-20261012.json",
+    "evidence_sha256": "1d781c08ac0c417e312c32e6a42b917aa14b2cf41ca0f3a744e0a61cc6992bff"
+  },
+  "source": {
+    "kind": "local_source_build",
+    "input_sha256": "fa1e0480b590c6b800d2c48dfbd29426f31018bee2d5fd691b782c0d9b363da5"
+  },
+  "why": "原生 SwiftUI 界面调用随包 Rust 计算引擎；空闲与关键查询分别实测。",
+  "why_en": "Native SwiftUI with bundled Rust calculations; idle resources and a representative query are measured separately."
+}

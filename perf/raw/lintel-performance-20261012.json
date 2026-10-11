@@ -1,0 +1,551 @@
+{
+  "checked_at": "2026-10-12T00:27:47+08:00",
+  "source_files": {
+    "Sources/AnnualView.swift": "26658a8b418ed4e3401114b3f881e2d345333aa862eacf0588017922a55ab310",
+    "Sources/BackendClient.swift": "d3078fcf72a4977c921612a837161c9644f9db2d1de8a053ec94eec4b92edf51",
+    "Sources/CapacityView.swift": "d1e8fed4a0099cdc83f44f8db444cc0cfaee3d491cd974131e18752b71df4123",
+    "Sources/CommandPalette.swift": "cc6e3276d1904b2432fa10c029527c0a5ef84306e0917ca74b49bb6d7d0fd325",
+    "Sources/ContentView.swift": "2b0b4c5a89242aba69a3bd899de6cd249775a9963a57eb03892ea4581062ccc4",
+    "Sources/DataTableView.swift": "ef8b509066b8af9da731351c501dacb8509d9068afc33c29cfd528d290ee01b8",
+    "Sources/DistrictView.swift": "4db24612138b71da3e94d582fa9559a60ef38e4a903c0b102499bd45259821d5",
+    "Sources/EfficiencyView.swift": "3a1a63ae5c33196ec6dc9b52cb0b000bfda5f63eef47a2fd6c88d4ab8cca5ba4",
+    "Sources/GeocodeView.swift": "4b9a40c6f56c49cfba572999efb18377e253807302e66c52cfc236e3aef1a07a",
+    "Sources/HydroMacApp.swift": "b8562c95fc74a8fd933ab3a505f779eeeac70c735cd655733affd4823591271a",
+    "Sources/IrrigationView.swift": "38dcad41afd7453f2a9552e7857cd83d1b8fba46f6ee13395b6907543aae290a",
+    "Sources/LaneSignal.swift": "e7e68ac41417ddd06e7049a7bd4e01a92d52305bc999cd6ddd323178c64a2ce8",
+    "Sources/Models.swift": "3c2cdf2f5da637cdbb4ee83006465854a9953ded7fcd24df77950bc02d21362d",
+    "Sources/RainfallView.swift": "a7f84d050b4d1bd03a5b41d684e6388015d70920538a0735c7b630113a0bd342",
+    "Sources/ReservoirView.swift": "7f5fb1bec327fa4f1900fd713aaa3cbd885bfcdd343e802c0a3d3884de9e463e",
+    "cli/src/annual/commands.rs": "55add164ec0f33c71a9f4d992bbbb53efdf6bf6f29b7ba9e1abdf2c83f76a110",
+    "cli/src/annual/data_loader.rs": "36c294ea19ee6387d828d932a332fc3cbb90ec9609be576ff308e5af88c19daa",
+    "cli/src/annual/mod.rs": "03ddbd231e82bd625a3ca412ec82d8d18081a6400d92191b26019a9e3ca72ac9",
+    "cli/src/annual/query.rs": "127ba8b688500743d30b4421ee052c1650cbc9781d37e8149c88b02bb1fec4d9",
+    "cli/src/annual/sample_data.rs": "94fbf3bd894c7d41125012aac22c3959318f615b7ef05a192258a0f539d858cd",
+    "cli/src/annual/types.rs": "ec1cdc641d411553ce763be0b48c584076e069276c3b55a57d11a5adef064af1",
+    "cli/src/capacity/aggregation.rs": "8414105c5ee9e956da3ae7bc64bbfad6a4baba11ba0132f4a771f654277509cf",
+    "cli/src/capacity/commands.rs": "0c3edf79a058d77f507c826401f5a931146f148c54a0ae3ac24d756414a3df8d",
+    "cli/src/capacity/mod.rs": "60487abaa38b7baadd126ebc5c1fe7d1487d133b62880685fbc366b291d7c5ea",
+    "cli/src/capacity/physics.rs": "59072e936cec443315bdcc2a90437e0c9ffc8aa1fe822562bc6157d14e69b822",
+    "cli/src/capacity/sample_data.rs": "29035b47595fcdecea0a160c09028abd58721187e90f74f7fd022238cff7d858",
+    "cli/src/capacity/segments.rs": "ceb157d61a2aeda521938d1d220aec9897e6cc8dff8d2089add1294ebb7f47c5",
+    "cli/src/capacity/types.rs": "b8adf8488ad706bada57eed65a3527fadab5797b46ff9044bbed0d237f361ebe",
+    "cli/src/common.rs": "23de623b47f25bc3725f4fe998199bb4d369056888d44907ea4d753dafcff4ac",
+    "cli/src/district/balance.rs": "f49ea439ccb456f6b9a1001087cfeaab0aa861aebfe2fa76a9040b1e0393fe63",
+    "cli/src/district/commands.rs": "51f438ab2936d1a8008982ff2fb5cdab6f4508bd390a668dfa4e54efcadd5fa1",
+    "cli/src/district/config.rs": "be7bb0956e141c81c975010191805328b6c43cda0132891250b3a7ae99301719",
+    "cli/src/district/interpolation.rs": "62bb23436b12e92e84648d851e6fa0485f2efe108263c335ae8f9504bc897845",
+    "cli/src/district/mod.rs": "58e3c84b4642291b8e110426641f5e1e7252fa7acb2163dff566001125287c7f",
+    "cli/src/district/sample_data.rs": "d42cb62cfae345d99c99f345a973648a355dc00f47bb90b1db1f4eaa184da3b1",
+    "cli/src/district/scheduler.rs": "8f01a3a65281e175a963566b070032c34fb2793ed9de35d881558431ec244218",
+    "cli/src/district/types.rs": "f745ea30440328d0fb9f12f8be2f4976303d93c3fc90010aa383e026afb0cc26",
+    "cli/src/efficiency/ahp.rs": "eb23d27f01500e407c4a2153c4303ef5ffd44309f23bea7104a17a067157755e",
+    "cli/src/efficiency/commands.rs": "4722e18ff0bda6b4ae0d28bef9904cce7b9f6e9aae8fbfcb4143e2310c99a2d2",
+    "cli/src/efficiency/critic.rs": "e2cf7ef9dcac8e6a1d2848996a8494d3f2191fbcf53067649a87add4f7ba5b65",
+    "cli/src/efficiency/indicators.rs": "34629e9d57be2ba4453f824422d4b8f3c9c267f0ba5b86ef127cbc71c5a2fd30",
+    "cli/src/efficiency/mod.rs": "d445d8653037d5835318191fe36c17b4f7a0d4415a65f32ca04ab4b5dc66755b",
+    "cli/src/efficiency/sample_data.rs": "9b759e3bd2d87708a5be5da0ba9f59ddca4b169711e5c13d9e11001d129ff7b5",
+    "cli/src/efficiency/topsis.rs": "d92af341ace1035f4949d290ea23ef30d15f58760948e4b8cd5fb220181bc88f",
+    "cli/src/efficiency/types.rs": "a1df5de9e3b77d7da89de41cd27b117338f17b91d427426022ecc38784792a94",
+    "cli/src/geocode/api.rs": "162ab95c5b39d0a69cdd6059a5898a99c9def54febd42e4482094d5906536273",
+    "cli/src/geocode/commands.rs": "7e432a53ea4052dfcef6377f562584eb14ad3af5186780116267cf408324688c",
+    "cli/src/geocode/coordinate.rs": "40a5ef53a19771adc95a7094bab5e04f64e8fb4afd6305bb75f5c5503a19c9e4",
+    "cli/src/geocode/mod.rs": "92de02238f1e26d17197c6f0473acc19accb9ad8da50e1a700b55d2180e25986",
+    "cli/src/geocode/sample_data.rs": "6ec8f39424877ea186f277f4ccf7ca92ed7e941aa569c3b509855f0bfc4fbf7f",
+    "cli/src/geocode/types.rs": "15c267212a942d74a088ee763d955055c87a10e9294b81b1dced3e185fb3e85a",
+    "cli/src/irrigation/calculator.rs": "8fd9101b1b984e1c9aa840cb8bdda366cc53f73ebfeaad95ebfa4d9c0c62a0bf",
+    "cli/src/irrigation/commands.rs": "6e051924aafc0cdaba8fafbae09399a17b8f7909d9df82d3c0bdcbd59d850cc8",
+    "cli/src/irrigation/dryland.rs": "180e90f5094946a57574ffe2fead89205a0c32a17d69bca36cf9d0d60275d6b1",
+    "cli/src/irrigation/mod.rs": "f6a2d670e7f5ab324a51fe53628afaa789b06f8d58845e4b4964c34f952ec2e9",
+    "cli/src/irrigation/paddy.rs": "c49ee791dcf52b3afdc988b2c820b090a096e31f20a069b32f262fab67cc10c3",
+    "cli/src/irrigation/sample_data.rs": "cbd1da0d7bcebe6f081e471ecc0b722caeda56f1f6cd4febb6e8cd128003b281",
+    "cli/src/irrigation/types.rs": "924d79f96508ff2eca4734d5f3db5282e78e34bae24c3b7609820c1ea945aa65",
+    "cli/src/main.rs": "22e64021c5780018757be0bcfaec0bd4ed5b04cf57e2537e686354f7c955aeca",
+    "cli/src/rainfall/commands.rs": "3fe83aaa986b0018c586f56a89ea8f6b8ce38af467929a5fffdd5536995fbbc9",
+    "cli/src/rainfall/mod.rs": "458acec7c751b31bb4958eec577e24f6699dcedb5fe46f0696e01e6146d2d52c",
+    "cli/src/rainfall/parser.rs": "e4b924c6c7e22c2a7df0975ed5f7e63ebf779f7eef8187c18a1c5baa143c432a",
+    "cli/src/rainfall/pipeline.rs": "d5081158993571fd70439d15882e6fcb8b2b95071d219cb82df4f411feba04ec",
+    "cli/src/rainfall/sample_data.rs": "a972f4b3e657307ab2207bb91294bfc277a0f80e29bf5173d5691b0d30f6f7ab",
+    "cli/src/rainfall/types.rs": "be8ed43738a0eb834fbd7e741a5169cf46f0f29d5aef49bbd79a83c880e80bf4",
+    "cli/src/reservoir/balance.rs": "0da6333dadac821d1887d945ad5350054d5d291220b8e6415b50229d7b0041b2",
+    "cli/src/reservoir/commands.rs": "3a540ab9a3c146921e0269f19f2e7247ec911299ad339f7b5d5b59f79e8546f1",
+    "cli/src/reservoir/dispatch.rs": "5a8bd785f7de9ebef5187700adfcc87e5d28b8a20b03686a14f0db7ce6ec47b0",
+    "cli/src/reservoir/interp.rs": "b40f7671b767bb21ca8c0ccd5ebfecefaabd1d7be207154da6b54d0a9c286f0e",
+    "cli/src/reservoir/mod.rs": "d523fff836b9a4014f67cefc7300e62ea87bdbbf123e9b1f70d9a243ff4c548b",
+    "cli/src/reservoir/physics.rs": "aabfa8873888d32ce414ecd93f4200603686980b5371a5b27921a4f1ac65d0cc",
+    "cli/src/reservoir/sample_data.rs": "37361e57b27a6ba29999508a114054172b6c2cf54e7e7efdbb66bf45643aab5f",
+    "cli/src/reservoir/scheduler.rs": "8f8ddc532db727cb1a5285486c9bf87c4812205f76471b2f4921440a437d6f20",
+    "cli/src/reservoir/statistics.rs": "4158cbee3a06f504d378cc8ee2a40d19de08c94762b55c50aa75821701a7c329",
+    "cli/src/reservoir/types.rs": "8cd5b18c1eb299a52980b0410d4a506cf60b420595345890c175f01ec82d498c",
+    "cli/data/sample/annual/2024_全省市_供水量.csv": "05ad8fc59b5d6c05d7badaeff5244929e0f97d8b69368f388230686c9a93193b",
+    "cli/data/sample/annual/2024_全省市_社会经济指标.csv": "3dc99d883eafe3d91f8a4a3a1f545792323844e0dbe79a1fc766fc7be56fb2bc",
+    "cli/data/sample/annual/2024_合计市_用水量.csv": "c9b4cb7d54b9a67e294d2158d2d3811273162f0c964060059992b5e2426b9ac2",
+    "cli/data/sample/capacity/纳污能力示例输入.xlsx": "37513b8368845e4f82d74f903aecfffc8ccc4e5c69e41d402e2fd6db1f1041cf",
+    "cli/data/sample/district/input_FQJL.txt": "aca92885438980c6025f4f260e860429890d864215a2808fdc7fcba3c655417f",
+    "cli/data/sample/district/input_GPS_GGXS.txt": "12071ec6fb956ac6cd513475abe30ad0a37f43189706f300861e2243b2c0dfef",
+    "cli/data/sample/district/input_GPS_PYCS.txt": "f698142b48b2db686f4a41f223059162bc9357f2811e42d60e3b114672ce67bd",
+    "cli/data/sample/district/input_LS_QT.txt": "0840e0d7a0cfee8d46345ad306fcdabd1de14c53b6aa20df6534c924a7c46584",
+    "cli/data/sample/district/input_SK.txt": "49de18221497c189ccb400a50a4c69fe87d004658448befacaf8addd82869da3",
+    "cli/data/sample/district/input_SW_CS.txt": "5f81d86760726ac70e31d338a3c918b4217e77d25ca0cf7f3c55f0a0dfa45a08",
+    "cli/data/sample/district/input_SW_MB.txt": "d062433dd809cb9ae30d289818b0394aa347f0d555134ed62d210197d2ee4745",
+    "cli/data/sample/district/input_XS_FN.txt": "fd5038a1e83deb60848d1f691db61d34c2291b64c9050df9850f7dc0f30d09da",
+    "cli/data/sample/district/input_XS_ST.txt": "d0caf62d61baeda387362d98f7963acbbbafb6d3ca94697501e344383359f953",
+    "cli/data/sample/district/static_FSSN_RULES.txt": "5afe08c6c831207b35153ba74c404301fa605349f48d33783637584d548493c4",
+    "cli/data/sample/district/static_HQ_SK.txt": "44a17629be14bec4be3a48b932a5e2269ca07af4a1fad3a1a827bb1c90529501",
+    "cli/data/sample/district/static_HQ_ZQ.txt": "b5cb743ca5ae4594ab8beec74a263c261bfeda82394a22e0a95445732b6e711d",
+    "cli/data/sample/district/static_SW_PS.txt": "9f750cb7b61bb9857412d50c99c8386836915297585d996ccdc409d2b2b7d2d8",
+    "cli/data/sample/efficiency/水效评估示例数据.xlsx": "3d2f162615b7afefbd8d1d07df4145743c1fa4f72b44aac06252e25958822bc9",
+    "cli/data/sample/geocode/landmarks.csv": "ef3fece4318e5e3348f4c292c0826513ebcaa932fe1930421abdd93bb18fceca",
+    "cli/data/sample/geocode/landmarks.xlsx": "7fc7db3a94a88128e8cdf92f6d5552f9f3ac2488ef3b313ae9d2255c19b6c607",
+    "cli/data/sample/irrigation/in_JYGC.txt": "5e15a59a94d6ee68a13c8ffd0ebce35815aafc3080380934dac62439af96af68",
+    "cli/data/sample/irrigation/in_TIME.txt": "905bfc05d4b79b384edc7af8058def7b3467d36b07ff0cb25f51f562fe6ccd2c",
+    "cli/data/sample/irrigation/in_ZFGC.txt": "7ef710ba8589baa40ff07e48c3c746dcedee2d74cdaa3fcfe8191c8c984c1b13",
+    "cli/data/sample/irrigation/in_dry_crop_area.txt": "9c12e8a0b5bccf33a76ad6adff84522c3b56d15bce17b18eb58ffceaa6ba6f4d",
+    "cli/data/sample/irrigation/static_crops.txt": "ca62eac2d179aa89de057e042d45906892467106aab1d4cd20a8bbb3133c318a",
+    "cli/data/sample/irrigation/static_double_crop.txt": "f3d758caa04ba62116b25221acbfe027a38e77fc46101d31035c072ef47afb06",
+    "cli/data/sample/irrigation/static_fenqu.txt": "907020f4834baa6008195165def56485f07eb82ab3279d063414450be5d6c83b",
+    "cli/data/sample/irrigation/static_single_crop.txt": "2d19b994a1da7f366f5acbe605e2e55273583818bc133676a49bf38251fae233",
+    "cli/data/sample/rainfall/input_FQNNGXL.txt": "ace64ca0227e48e130bc6b9c94ef0f32b47139e0cf847e0417d02b6cd3463d5c",
+    "cli/data/sample/rainfall/input_GHJYL.txt": "7ce23ed31b199e31b01d7b5db2dd5fff77315d88dad3cbc4f66963ab8fea91e4",
+    "cli/data/sample/rainfall/input_YSH.txt": "091832436833145f55b6ebccc0dc2cc79c0ac4f4fe6c5ee9472bcbcbb5938212",
+    "cli/data/sample/rainfall/input_YSH_GH.txt": "2cdbd950bf0ffb23168d89e54d39d8e989a170119983392b3a4cb3529ba63887",
+    "cli/data/sample/rainfall/static_PYLYSCS.txt": "f22897fa07437a7214a8932fdd310b6cd4d7e99baf410f3f05a6fd7d3bfd798e",
+    "cli/data/sample/reservoir/sample_input.json": "e9b8dc1814bc703620229be841db674b202dcd2a8ebe47dfad46fd5475f4245e",
+    "build.sh": "3510a0c5d025464bd8b683e1a004bfca38eff9b70c33b86b2364668dffa475d1",
+    "cli/Cargo.toml": "9714d6a1b40fc8937cbcdf1f7665197ae454d513f8bb55132afcbcd78179ee8d",
+    "cli/Cargo.lock": "ae5b3a0bb78a6ee9860a1d0c0ec048f7e95f6ae7d472735ba73142d23f5c4597"
+  },
+  "source_files_sha256": "fa1e0480b590c6b800d2c48dfbd29426f31018bee2d5fd691b782c0d9b363da5",
+  "built_executable_sha256": "a3dbdd19209bd2aac691d5fc9b970442e9980aca534d092bc553976529227f4b",
+  "build_log_sha256": "d96d9517f4ec3e6e30f786e3920134cc98f8a8798fbb0b227ddad1d7770c6880",
+  "scope": "local source build, not the public release binary",
+  "public_archive": {
+    "file": "HydroMac-v1.0.0-arm64.zip",
+    "bytes": 2744249,
+    "sha256": "5f1f2bbf30f0a7e96e707033cabd988f18662465dc1267650c37a4fc1dfb5660",
+    "version": "1.0.0",
+    "build": "1",
+    "executable_sha256": "fdf69ef5841813b17334a5b1235ae8cc1329267b325fbeabb6171e6d1874feee"
+  },
+  "quiet": {
+    "ok": true,
+    "platform": "mac",
+    "udid": null,
+    "pid": 96144,
+    "app_copy": "<scratch>/6_/r0ygnj7s41g013d21kpwlph80000gp/T/sim-lane-mac.ue2b8qyi/水利工具箱.app",
+    "work_dir": "<scratch>/6_/r0ygnj7s41g013d21kpwlph80000gp/T/sim-lane-mac.ue2b8qyi",
+    "bundle_id": "io.github.zengtianli.HydroMac",
+    "run_bundle_id": "io.github.zengtianli.HydroMac.lane",
+    "version": "1.0.0",
+    "build": "8",
+    "launch_args": [
+      "-lane_quiet",
+      "YES"
+    ],
+    "ready_seconds": 0.438,
+    "ready_signal": "os_log",
+    "screenshot": null,
+    "size": null,
+    "verdict": null,
+    "quiet": true,
+    "window_on_screen": false,
+    "dock_types": [
+      "UIElement"
+    ],
+    "front_unchanged": true,
+    "focus_taken": false,
+    "front_app": "com.apple.Notes",
+    "screenshot_method": null,
+    "environment": "native",
+    "errors": [],
+    "snapshot_background": "black"
+  },
+  "idle": {
+    "footprint_mb": 33,
+    "main_footprint_mb": 33,
+    "cpu_pct": 0,
+    "main_cpu_pct": 0,
+    "processes": [
+      {
+        "pid": 96144,
+        "name": "main",
+        "cpu_pct": 0,
+        "footprint_peak_mb": 33
+      }
+    ],
+    "window_s": 60,
+    "settle_s": 45,
+    "method": "sim_lane.run_mac_quiet LSUIElement isolated copy; settle 45 s; shared measure.idle_with_helpers 60 s CPU, then 3 simultaneous phys_footprint samples"
+  },
+  "hyperfine": {
+    "schema_version": 2,
+    "metadata": {
+      "hyperfine_version": "2.0.0",
+      "start_time": "2026-10-11T16:25:38Z",
+      "platform": {
+        "os": "Darwin",
+        "architecture": "arm64"
+      }
+    },
+    "primary_metric": "time_wall_clock",
+    "results": [
+      {
+        "command": "build/水利工具箱.app/Contents/Resources/hydro-cli annual sample",
+        "measurements": [
+          {
+            "time_wall_clock": {
+              "value": 0.004422458000000001,
+              "unit": "second"
+            },
+            "time_cpu": {
+              "value": 0.003571,
+              "unit": "second"
+            },
+            "time_user": {
+              "value": 0.002346,
+              "unit": "second"
+            },
+            "time_system": {
+              "value": 0.001225,
+              "unit": "second"
+            },
+            "memory_peak_resident": {
+              "value": 7045120,
+              "unit": "byte"
+            },
+            "cpu_cycles": {
+              "value": 13970755
+            },
+            "instructions": {
+              "value": 32645102
+            },
+            "exit_code": 0
+          },
+          {
+            "time_wall_clock": {
+              "value": 0.0037075420000000003,
+              "unit": "second"
+            },
+            "time_cpu": {
+              "value": 0.003228,
+              "unit": "second"
+            },
+            "time_user": {
+              "value": 0.0018729999999999999,
+              "unit": "second"
+            },
+            "time_system": {
+              "value": 0.0013549999999999999,
+              "unit": "second"
+            },
+            "memory_peak_resident": {
+              "value": 7045120,
+              "unit": "byte"
+            },
+            "cpu_cycles": {
+              "value": 12209938
+            },
+            "instructions": {
+              "value": 32712438
+            },
+            "exit_code": 0
+          },
+          {
+            "time_wall_clock": {
+              "value": 0.004334208,
+              "unit": "second"
+            },
+            "time_cpu": {
+              "value": 0.003469,
+              "unit": "second"
+            },
+            "time_user": {
+              "value": 0.002056,
+              "unit": "second"
+            },
+            "time_system": {
+              "value": 0.001413,
+              "unit": "second"
+            },
+            "memory_peak_resident": {
+              "value": 7045120,
+              "unit": "byte"
+            },
+            "cpu_cycles": {
+              "value": 14083187
+            },
+            "instructions": {
+              "value": 33164359
+            },
+            "exit_code": 0
+          },
+          {
+            "time_wall_clock": {
+              "value": 0.004993,
+              "unit": "second"
+            },
+            "time_cpu": {
+              "value": 0.004025,
+              "unit": "second"
+            },
+            "time_user": {
+              "value": 0.0023079999999999997,
+              "unit": "second"
+            },
+            "time_system": {
+              "value": 0.001717,
+              "unit": "second"
+            },
+            "memory_peak_resident": {
+              "value": 7077888,
+              "unit": "byte"
+            },
+            "cpu_cycles": {
+              "value": 14969767
+            },
+            "instructions": {
+              "value": 33569933
+            },
+            "exit_code": 0
+          },
+          {
+            "time_wall_clock": {
+              "value": 0.004465542,
+              "unit": "second"
+            },
+            "time_cpu": {
+              "value": 0.003614,
+              "unit": "second"
+            },
+            "time_user": {
+              "value": 0.002041,
+              "unit": "second"
+            },
+            "time_system": {
+              "value": 0.001573,
+              "unit": "second"
+            },
+            "memory_peak_resident": {
+              "value": 7045120,
+              "unit": "byte"
+            },
+            "cpu_cycles": {
+              "value": 14174969
+            },
+            "instructions": {
+              "value": 33241743
+            },
+            "exit_code": 0
+          },
+          {
+            "time_wall_clock": {
+              "value": 0.004708875,
+              "unit": "second"
+            },
+            "time_cpu": {
+              "value": 0.003477,
+              "unit": "second"
+            },
+            "time_user": {
+              "value": 0.002215,
+              "unit": "second"
+            },
+            "time_system": {
+              "value": 0.0012619999999999999,
+              "unit": "second"
+            },
+            "memory_peak_resident": {
+              "value": 7061504,
+              "unit": "byte"
+            },
+            "cpu_cycles": {
+              "value": 14252656
+            },
+            "instructions": {
+              "value": 33139586
+            },
+            "exit_code": 0
+          },
+          {
+            "time_wall_clock": {
+              "value": 0.004207375,
+              "unit": "second"
+            },
+            "time_cpu": {
+              "value": 0.0032389999999999997,
+              "unit": "second"
+            },
+            "time_user": {
+              "value": 0.0017319999999999998,
+              "unit": "second"
+            },
+            "time_system": {
+              "value": 0.0015069999999999999,
+              "unit": "second"
+            },
+            "memory_peak_resident": {
+              "value": 7061504,
+              "unit": "byte"
+            },
+            "cpu_cycles": {
+              "value": 11701668
+            },
+            "instructions": {
+              "value": 32691596
+            },
+            "exit_code": 0
+          },
+          {
+            "time_wall_clock": {
+              "value": 0.0038688750000000004,
+              "unit": "second"
+            },
+            "time_cpu": {
+              "value": 0.003035,
+              "unit": "second"
+            },
+            "time_user": {
+              "value": 0.001924,
+              "unit": "second"
+            },
+            "time_system": {
+              "value": 0.001111,
+              "unit": "second"
+            },
+            "memory_peak_resident": {
+              "value": 7045120,
+              "unit": "byte"
+            },
+            "cpu_cycles": {
+              "value": 12774969
+            },
+            "instructions": {
+              "value": 32688516
+            },
+            "exit_code": 0
+          },
+          {
+            "time_wall_clock": {
+              "value": 0.005363208,
+              "unit": "second"
+            },
+            "time_cpu": {
+              "value": 0.004198,
+              "unit": "second"
+            },
+            "time_user": {
+              "value": 0.002672,
+              "unit": "second"
+            },
+            "time_system": {
+              "value": 0.001526,
+              "unit": "second"
+            },
+            "memory_peak_resident": {
+              "value": 7061504,
+              "unit": "byte"
+            },
+            "cpu_cycles": {
+              "value": 14629565
+            },
+            "instructions": {
+              "value": 33155188
+            },
+            "exit_code": 0
+          },
+          {
+            "time_wall_clock": {
+              "value": 0.0038425000000000004,
+              "unit": "second"
+            },
+            "time_cpu": {
+              "value": 0.002975,
+              "unit": "second"
+            },
+            "time_user": {
+              "value": 0.001792,
+              "unit": "second"
+            },
+            "time_system": {
+              "value": 0.001183,
+              "unit": "second"
+            },
+            "memory_peak_resident": {
+              "value": 7045120,
+              "unit": "byte"
+            },
+            "cpu_cycles": {
+              "value": 12446597
+            },
+            "instructions": {
+              "value": 32687255
+            },
+            "exit_code": 0
+          }
+        ],
+        "summary": {
+          "cpu_cycles": {
+            "count": 10,
+            "mean": 13521407.1,
+            "stddev": 1132790.4000465644,
+            "median": 14026971,
+            "min": 11701668,
+            "max": 14969767
+          },
+          "instructions": {
+            "count": 10,
+            "mean": 32969571.6,
+            "stddev": 323724.01030617283,
+            "median": 32926012,
+            "min": 32645102,
+            "max": 33569933
+          },
+          "memory_peak_resident": {
+            "unit": "byte",
+            "count": 10,
+            "mean": 7053312,
+            "stddev": 11585.237502960395,
+            "median": 7045120,
+            "min": 7045120,
+            "max": 7077888
+          },
+          "time_cpu": {
+            "unit": "second",
+            "count": 10,
+            "mean": 0.0034830999999999994,
+            "stddev": 0.0003962960313256297,
+            "median": 0.003473,
+            "min": 0.002975,
+            "max": 0.004198
+          },
+          "time_system": {
+            "unit": "second",
+            "count": 10,
+            "mean": 0.0013871999999999999,
+            "stddev": 0.00019395807107035616,
+            "median": 0.0013839999999999998,
+            "min": 0.001111,
+            "max": 0.001717
+          },
+          "time_user": {
+            "unit": "second",
+            "count": 10,
+            "mean": 0.0020958999999999995,
+            "stddev": 0.000291019453339845,
+            "median": 0.0020485,
+            "min": 0.0017319999999999998,
+            "max": 0.002672
+          },
+          "time_wall_clock": {
+            "unit": "second",
+            "count": 10,
+            "mean": 0.0043913583,
+            "stddev": 0.0005262769463046893,
+            "median": 0.004378333,
+            "min": 0.0037075420000000003,
+            "max": 0.005363208
+          }
+        }
+      }
+    ]
+  }
+}
