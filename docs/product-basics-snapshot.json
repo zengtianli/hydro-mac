@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "source_component": "hydro-mac",
+  "direction": "source to public snapshot only",
+  "whitelist": [
+    {"source": "ProductLifecycle.swift", "sha256": "93d31792aaf1a684a8f8f75045770fcfe3fd71eb86168256ea630d79c0d0f62f"},
+    {"source": "ProductSettings.swift", "sha256": "318131b04b013e2e18ffdf70e9097767b802d3951c33c9009b1298cf355430e6"},
+    {"source": "ProductBasicsSelfTest.swift", "sha256": "da7ecb12b5d375a83281b5c9ba93f332e1088e06e5d6ea003da89bdf7ef256ff"}
+  ],
+  "adaptations": [
+    "Public identity io.github.zengtianli.HydroMac and command hydromac",
+    "GitHub official release transport instead of private cloud release",
+    "Public ad-hoc download and manual replacement verification",
+    "No calculator, Rust, customer data, credentials, source history or private release inputs copied"
+  ],
+  "shared_source": "vendor-lifecycle.py: byte-identical AppConfiguration, AppLifecycle, AppLifecycleUI, AppLifecycleCLI and AppShortcuts"
+}

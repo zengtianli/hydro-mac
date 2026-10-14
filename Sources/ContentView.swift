@@ -21,12 +21,12 @@ let CALCULATORS: [Calculator] = [
 ]
 
 struct ContentView: View {
-    @State private var selection: Calculator? = CALCULATORS.first
+    @ObservedObject var navigation = HydroNavigation.shared
     @State private var showPalette = false
 
     var body: some View {
         NavigationSplitView {
-            List(selection: $selection) {
+            List(selection: $navigation.selection) {
                 Section("本地计算器") {
                     ForEach(CALCULATORS) { calc in
                         Label {
@@ -48,7 +48,7 @@ struct ContentView: View {
             .navigationTitle("水利工具箱")
             .frame(minWidth: 210)
         } detail: {
-            if let selection {
+            if let selection = navigation.selection {
                 if selection.key == "annual" {
                     AnnualView()
                 } else if selection.key == "capacity" {
@@ -80,7 +80,7 @@ struct ContentView: View {
         CALCULATORS.map { c in
             PaletteItem(id: "calc-\(c.key)", title: c.name,
                         subtitle: c.ready ? "本地计算器" : "本地计算器 · 建设中",
-                        icon: c.icon, keywords: c.key) { selection = c }
+                        icon: c.icon, keywords: c.key) { navigation.selection = c }
         }
     }
 

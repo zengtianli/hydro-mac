@@ -39,6 +39,10 @@ CLI_BIN="cli/target/release/hydro-cli"
 
 echo "→ swiftc 编译 SwiftUI 前端(release)…"
 mkdir -p build
+_LIFECYCLE_VENDOR=/Users/tianli/Dev/tools/dev/lib/tools/macapp/swift-shared/vendor-lifecycle.py
+if [ -f "$_LIFECYCLE_VENDOR" ]; then
+  python3 "$_LIFECYCLE_VENDOR" --platform mac --cli --shortcuts --target-source-dir "$DIR/Sources" --check
+fi
 xcrun swiftc -O -parse-as-library -target arm64-apple-macosx14.0 \
   Sources/Models.swift \
   Sources/CommandPalette.swift \
@@ -54,15 +58,26 @@ xcrun swiftc -O -parse-as-library -target arm64-apple-macosx14.0 \
   Sources/GeocodeView.swift \
   Sources/ContentView.swift \
   Sources/LaneSignal.swift \
+  Sources/AppConfiguration.swift \
+  Sources/AppLifecycle.swift \
+  Sources/AppLifecycleUI.swift \
+  Sources/AppLifecycleCLI.swift \
+  Sources/AppShortcuts.swift \
+  Sources/ProductLifecycle.swift \
+  Sources/ProductSettings.swift \
+  Sources/ProductBasicsSelfTest.swift \
+  Sources/ProductBasicsTransport.swift \
   Sources/HydroMacApp.swift \
   -o "build/$APP_NAME"
 
 echo "→ 打包 .app bundle(嵌 hydro-cli 进 Resources)…"
 APP="build/$DISPLAY_NAME.app"
 rm -rf "$APP"
-mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
+mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources/bin"
 cp "build/$APP_NAME" "$APP/Contents/MacOS/$APP_NAME"
 cp "$CLI_BIN" "$APP/Contents/Resources/hydro-cli"        # 后端随 app 走,自包含
+cp "$DIR/scripts/hydromac" "$APP/Contents/Resources/bin/hydromac"
+chmod +x "$APP/Contents/Resources/bin/hydromac"
 cp "$DIR/icon/AppIcon.icns" "$APP/Contents/Resources/AppIcon.icns"
 
 cat > "$APP/Contents/Info.plist" <<PLIST
@@ -89,6 +104,7 @@ plutil -replace CFBundleIconFile    -string "AppIcon"       "$APP/Contents/Info.
 plutil -replace CFBundleVersion     -string "$(git -C "$DIR" rev-list --count HEAD 2>/dev/null || echo 1)" "$APP/Contents/Info.plist"
 
 codesign --force -s - "$APP"
+"$APP/Contents/Resources/bin/hydromac" --help >/dev/null
 echo "✅ 构建完成 → $APP"
 
 if [ "${1:-}" = "--install" ]; then

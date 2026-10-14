@@ -61,6 +61,16 @@ bash scripts/golden-test.sh              # 20 case 数值回归(改任何 calc �
 
 System requirements: macOS 14+, Apple Silicon.
 
+## Settings, shortcuts, iCloud and updates
+
+The app menu opens native configuration and update settings. Select the startup calculator and customize or disable its app shortcut (default Command-R); Command-K searches tools. Reserved and conflicting keys are rejected.
+
+Optional iCloud Drive configuration sync is off by default and uses the system Apple ID. Only the calculator preference, shortcut and update options migrate; credentials, permissions, paths and calculation data stay local. Import/export and local fallback are supported. Disabling sync preserves both copies.
+
+Check for Updates reads this repository's official GitHub Releases and offers the download link. Automatic checking is optional and off by default. Public ad-hoc builds follow the documented download, extract and replace installation flow.
+
+The bundled `Contents/Resources/bin/hydromac --help` exposes the same preferences, shortcuts, configuration and update adapters. The fixed acceptance script defaults to the installed app; explicit `--app` and `--receipt` arguments select an uninstalled candidate. Tests use the real product in disposable domains and offscreen views. Local isolated iCloud round trips do not establish Apple cross-device delivery.
+
 ## License
 
 [MIT](LICENSE)

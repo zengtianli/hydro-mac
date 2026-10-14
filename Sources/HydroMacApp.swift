@@ -1,10 +1,27 @@
+import AppKit
 import SwiftUI
 
-/// 水利工具箱 HydroMac —— 原生 SwiftUI 壳 + vendored Rust hydro-cli 后端(JSON 契约)。
-/// macOS 专属原生版;计算核 vendored 自作者上游 hydro 项目。
 @main
+enum HydroMacMain {
+    @MainActor static func main() {
+        let words = Array(CommandLine.arguments.dropFirst())
+        ProductBasicsTransport.installIfIsolated()
+        if words.first == "--help" {
+            print(AppLifecycleCLI.help(Lifecycle.command))
+            _ = HydroSettingsCLI.run(["preferences", "--help"])
+            return
+        }
+        if HydroSettingsCLI.handles(words.first) { exit(HydroSettingsCLI.run(words)) }
+        if AppLifecycleCLI.handles(words.first) { exit(AppLifecycleCLI.run(words, product: Lifecycle.product())) }
+        if words.first == "--product-basics-self-test" || words.first == "--ui-self-test" { ProductBasicsSelfTest.runAndExit() }
+        HydroMacApp.main()
+    }
+}
+
+/// 公开版原生壳；配置/快捷键/同步/更新均调用总部生命周期实现。
 struct HydroMacApp: App {
     @NSApplicationDelegateAdaptor(LaneAppDelegate.self) private var laneDelegate
+    init() { Lifecycle.installApp() }
     var body: some Scene {
         WindowGroup {
             ContentView()
