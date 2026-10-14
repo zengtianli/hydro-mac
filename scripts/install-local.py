@@ -26,7 +26,8 @@ def signature(path):
     authority = next((x.split('=', 1)[1] for x in text.splitlines() if x.startswith('Authority=Developer ID Application: ')), None)
     assert authority and 'runtime)' in text and '\nTimestamp=' in text, 'Stable Developer ID/runtime/timestamp required'
     requirement = call(['codesign', '-dr-', path])
-    return authority, (requirement.stdout + requirement.stderr).strip()
+    designated = next(x for x in (requirement.stdout + requirement.stderr).splitlines() if x.startswith('designated =>'))
+    return authority, designated
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)

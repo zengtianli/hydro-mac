@@ -75,7 +75,7 @@ def main():
     signed = extracted / 'signed'
     origin = json.loads((signed / 'receipt.json').read_text())
     assert all(sha(APP / p) == h for p, h in origin['built_unsigned'].items()), 'Signed input no longer equals the compiled public bundle'
-    output = ROOT / 'build/accept/installed-source'
+    output = ROOT / 'build/accept' / ('installed-source-' + build)
     assert not output.exists(), 'Output exists; do not overwrite provenance'
     call(['/usr/bin/ditto', signed, output])
     proof = {'schema_version': 1, 'identity': IDENTITY, 'host': args.host, 'remote_cache': remote,
