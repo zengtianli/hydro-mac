@@ -12,7 +12,7 @@ Chapter 任务 f0af76232ec95284a07d9cf73b9631a2，2026-10-15；复用派出身�
 
 边界：候选不装机、不启动已装实例、不改变真实偏好/账号/iCloud/后台/暂存；UI 离屏、不进 Dock、不合成输入；不推送、公开、部署、公证、发更新源或手机装机。iCloud 本机隔离链路与苹果跨设备传输分开报告。
 
-状态：本輪源码和候选验收完成；未安装，Chapter 后续独立 install 阶段接续。
+状态：本轮源码和候选验收完成；未安装，Chapter 后续独立 install 阶段接续。
 
 实现：总部 AppConfiguration/AppLifecycle/AppLifecycleUI/AppLifecycleCLI/AppShortcuts 逐字节 vendor，--check 通过；产品适配启动计算器、可关闭/恢复及修改的应用快捷键和更新选项。⌘R 打开默认计算器，⌘K 搜索，系统保留键及冲突拒绝。可选 iCloud Drive 默认关闭，只同步偏好白名单，凭据/权限/路径/计算数据排除。公开身份/配置/通知与私有版独立，正式更新源为 zengtianli/hydro-mac 的 GitHub Release；公开 ad-hoc 分发提供真实下载入口，沿原 README 手动解压替换，不冒充自动安装。
 
@@ -35,3 +35,5 @@ chapter sop accept --app hydro-mac-oss --check product_basics --json
 最终原件：perf/acceptance/product-basics-1cd35b1740574890875d22d43a396261/raw.json，SHA256 93c4d28796ee75baa63e8f93baf726d236418ca9e5bf0641a13e1140ba6b9755；spec digest 8e832265a1aa330b44c2c412a84e726016b829c3f4e4842a98568043757e5eac。native/native.json、实际 CLI cases、4 张 PNG 和 owner-before/after 在同目录。正式 product_basics.json/detail/log 及 perf/delivery-evidence.json 由 Chapter 原引擎写入，未手写通过记录。
 
 数据与边界：真实公开偏好、支持目录、iCloud 配置/发行条目与安装字节前后相等；实际扫描 /Applications 和 ~/Applications 未发现该公开 bundle，候选未安装。已装私有 HydroKit 不修改、不重启。iCloud 仅本机隔离目录链路通过，苹果服务器/跨设备传输未验证；正式 GitHub 实网成功未宣称已验，受限网络错误已如实观察。无用户决定/本产品受阻，不公证、发布、推送、部署或写更新源，claims 保留。project.yaml 原为忽略的本机登记，沿原边界留本机，不强制加入公开源码；入场 dist/docs/demo/perf 原件保留。
+
+源码提交 c93714b9fc2ac9fdaf4572d86c8d22bed577aa67（18 个本轮文件）；暂存为空，原 untracked 的发行/演示/验收文件保留，未推送。提交后逐个重算 124 个构建输入与候选主程序仍匹配回执；chapter basics --app hydro-mac-oss --json 的 fresh 回读为 passed、无 problems，未重复运行相同验收。候选后续安装入口仍是原 build.sh --install，但本轮不执行；Chapter 独立 install 阶段应先核同 bundle 旧包/真实来源及既有发行签名边界，装机后用默认固定脚本验已装版，不携带候选覆盖环境变量。
