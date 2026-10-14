@@ -37,3 +37,13 @@ chapter sop accept --app hydro-mac-oss --check product_basics --json
 数据与边界：真实公开偏好、支持目录、iCloud 配置/发行条目与安装字节前后相等；实际扫描 /Applications 和 ~/Applications 未发现该公开 bundle，候选未安装。已装私有 HydroKit 不修改、不重启。iCloud 仅本机隔离目录链路通过，苹果服务器/跨设备传输未验证；正式 GitHub 实网成功未宣称已验，受限网络错误已如实观察。无用户决定/本产品受阻，不公证、发布、推送、部署或写更新源，claims 保留。project.yaml 原为忽略的本机登记，沿原边界留本机，不强制加入公开源码；入场 dist/docs/demo/perf 原件保留。
 
 源码提交 c93714b9fc2ac9fdaf4572d86c8d22bed577aa67（18 个本轮文件）；暂存为空，原 untracked 的发行/演示/验收文件保留，未推送。提交后逐个重算 124 个构建输入与候选主程序仍匹配回执；chapter basics --app hydro-mac-oss --json 的 fresh 回读为 passed、无 problems，未重复运行相同验收。候选后续安装入口仍是原 build.sh --install，但本轮不执行；Chapter 独立 install 阶段应先核同 bundle 旧包/真实来源及既有发行签名边界，装机后用默认固定脚本验已装版，不携带候选覆盖环境变量。
+
+## 本机安装阶段 · 2026-10-15 接续
+
+Chapter 同任务，复用 PID 36288。本次用户明确授权本机迭代快装一次、稳定开发者签名，不公证/发布。范围仅 build.sh 原安装段的身份/签名/回滚适配、scripts/sign-local.sh、sign-transfer.py、install-local.py、project.yaml 必要输入登记、perf/build-receipt 与安装/验收原件和本交接；不改四项已通过实现、不展开推广页旧 SOP。共享资源是公开 bundle 的 /Applications 目标、原 Chapter 验收锁与持证机 login_run 任务缓存；不改私有产品、持证机仓库/装机、偏好/账号/iCloud/登录项/后台/他人暂存。
+
+完成条件：Mini 当前源码真实编译，Air 原 Developer ID B9LJH93LA4 登录会话仅签隔离包并 SHA 回传，原 build/install 入口安装一次并逐文件/版本/签名/源回执读回，默认已装版固定验收覆盖 14 项；安装前后配置及其他产品/后台不变，旧版可回溯。有限预算 30 分钟，未知先读原件，同因不循环。
+
+入场现场：公开 bundle 在 /Applications 和 ~/Applications 均未安装；私有 HydroKit 1.0.1 (85) 保留，Developer ID B9LJH93LA4；无 HydroMac/hydro-cli 运行实例。Mini 仅有 CJZ357HGD3 Apple Development，Air 现场有原 B9LJH93LA4 Developer ID；只用原 login_run.py，不转移钥匙。原 public build.sh --install 按 HydroMac 可执行名 pkill、无备份直接删除目录，必须先改为按公开 bundle 校验、保留旧包且不结束其他产品。入场 dirty 仍只有 dist/docs/demo/perf 原 untracked，暂存为空。
+
+状态：安装适配和签名接续中。

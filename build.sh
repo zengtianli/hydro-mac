@@ -2,7 +2,7 @@
 # build.sh — 构建 水利工具箱 HydroMac(原生 SwiftUI + vendored Rust hydro-cli 后端)。
 #
 #   ./build.sh             构建 → ./build/水利工具箱.app
-#   ./build.sh --install   构建 + 装入 /Applications(失败退 ~/Applications)
+#   ./build.sh --install --prepared SIGNED.app   安装本轮已签包（必须匹配真实构建回执）
 #
 # 形态 = 裸 SwiftUI 源码(Sources/*.swift,swiftc 直编)+ cargo 编 cli/ → hydro-cli 嵌 .app Resources,自包含。
 # adhoc 签名(无需付费开发者证书);若使用下载的 zip 而非本地构建,先清 quarantine:
@@ -10,6 +10,12 @@
 set -euo pipefail
 DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$DIR"
+if [ "${1:-}" = "--install" ] && [ "${2:-}" = "--prepared" ] && [ "$#" = 3 ]; then
+  exec python3 "$DIR/scripts/install-local.py" --app "$3"
+fi
+if [ "$#" != 0 ] && { [ "$#" != 1 ] || [ "${1:-}" != "--install" ]; }; then
+  echo 'usage: build.sh [--install [--prepared SIGNED.app]]' >&2; exit 2
+fi
 
 APP_NAME="HydroMac"          # CFBundleName/可执行名(open -a HydroMac)
 DISPLAY_NAME="水利工具箱"      # 安装文件名 = 显示名
@@ -108,12 +114,5 @@ codesign --force -s - "$APP"
 echo "✅ 构建完成 → $APP"
 
 if [ "${1:-}" = "--install" ]; then
-  pkill -x "$APP_NAME" 2>/dev/null || true
-  DEST="/Applications/$DISPLAY_NAME.app"
-  if ! rm -rf "$DEST" 2>/dev/null || ! cp -R "$APP" "$DEST" 2>/dev/null; then
-    DEST="$HOME/Applications/$DISPLAY_NAME.app"
-    mkdir -p "$HOME/Applications"
-    rm -rf "$DEST"; cp -R "$APP" "$DEST"
-  fi
-  echo "✅ 已安装 → $DEST"
+  python3 "$DIR/scripts/install-local.py" --app "$APP"
 fi

@@ -47,7 +47,7 @@ xattr -cr "/Applications/水利工具箱.app"
 ```bash
 git clone https://github.com/zengtianli/hydro-mac.git
 cd hydro-mac
-./build.sh --install
+./build.sh
 ```
 
 ## 开发
@@ -58,6 +58,8 @@ echo '' | cli/target/release/hydro-cli annual sample   # 单测某个计算器
 bash scripts/golden-test.sh              # 20 case 数值回归(改任何 calc 数学必须全 PASS)
 ./build.sh                               # 完整构建 → build/水利工具箱.app
 ```
+
+作者本机迭代安装使用稳定 Developer ID 签名和真实构建回执：`./build.sh --install --prepared <已签名.app>`。入口按本公开版 bundle 校验身份、逐文件内容及当前源码来源，保留旧包供恢复；应用在用时拒绝替换，不结束同名的其他产品。默认构建的 ad-hoc 候选只留在 build 中，发行 ZIP 仍沿上面的手动安装流程。
 
 系统要求：macOS 14+，Apple Silicon。
 

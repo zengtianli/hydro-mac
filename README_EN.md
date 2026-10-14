@@ -47,7 +47,7 @@ Alternatively, right-click → Open, then allow it in System Settings → Privac
 ```bash
 git clone https://github.com/zengtianli/hydro-mac.git
 cd hydro-mac
-./build.sh --install
+./build.sh
 ```
 
 ## Development
@@ -62,6 +62,8 @@ bash scripts/golden-test.sh              # 20 case 数值回归(改任何 calc �
 System requirements: macOS 14+, Apple Silicon.
 
 ## Settings, shortcuts, iCloud and updates
+
+The author's local iteration installer is `./build.sh --install --prepared <signed.app>`. It requires a stable Developer ID and an actual current-source build receipt, verifies every bundle file, and retains the previous installation for recovery. Running apps and other products are left untouched. Default ad-hoc build candidates remain in `build/`; public release ZIPs use the documented manual installation flow.
 
 The app menu opens native configuration and update settings. Select the startup calculator and customize or disable its app shortcut (default Command-R); Command-K searches tools. Reserved and conflicting keys are rejected.
 
