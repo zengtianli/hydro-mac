@@ -46,4 +46,27 @@ Chapter 同任务，复用 PID 36288。本次用户明确授权本机迭代快�
 
 入场现场：公开 bundle 在 /Applications 和 ~/Applications 均未安装；私有 HydroKit 1.0.1 (85) 保留，Developer ID B9LJH93LA4；无 HydroMac/hydro-cli 运行实例。Mini 仅有 CJZ357HGD3 Apple Development，Air 现场有原 B9LJH93LA4 Developer ID；只用原 login_run.py，不转移钥匙。原 public build.sh --install 按 HydroMac 可执行名 pkill、无备份直接删除目录，必须先改为按公开 bundle 校验、保留旧包且不结束其他产品。入场 dirty 仍只有 dist/docs/demo/perf 原 untracked，暂存为空。
 
-状态：安装适配和签名接续中。
+状态：本机稳定开发者签名安装及已装版四项验收完成。
+
+实际安装 /Applications/水利工具箱.app，1.0.0 (13)，bundle io.github.zengtianli.HydroMac，主程序 SHA256 84f43b97379697361e90d7a3d95666baa82f6a2d9805b0aec5204264b2f896b3。原 Developer ID Application: tianli Zeng (B9LJH93LA4)、hardened runtime、安全时间戳、deep/strict 签名全部通过；不是 ad-hoc 或新开发身份，未公证。公开版先前没有安装，previous/retired_app 为 null；未把私有 HydroKit 当作旧公开包替换，私有包逐文件 SHA 保持相同。
+
+新增安装适配提交 ab9f714、签名要求路径归一修复 1ba156a。原 build.sh --install 新增 --prepared 当前签名原件入口，不再按执行名 pkill 或删除旧目录；先校验公开 bundle、稳定签名、完整 designated requirement、真实编译回执与全部文件，复制核对后同卷切换，旧包保留回滚并归废纸篓。签名工具只接本公开包，沿总部 login_run.py 的 Air 登录会话，私钥不搬运、不改 Air 源码/装机；输入及返回 ZIP SHA 均验证。只做一次真实安装，没有重复装机。
+
+首次 12 已签成功，安装前读取 codesign 原件发现 -dr- 含绝对 Executable 路径，不能把整个输出作为复制后签名要求；尚未执行真实安装。修为完整 designated => 行比较后，用真正的签名复制包验证要求和每个文件一致，再当前源码重新编译、签成 13。原 12 签名产物/ZIP 与 preflight-build-receipt-12.json 保留；没有修改共享生产签名/分发门，也没有借公证开关绕发行限制。
+
+正式 perf/build-receipt.json 由 app_sop build-receipt 包裹实际 bash build.sh && python3 scripts/sign-transfer.py 生成，源码提交 1ba156a552bde7eb9c7bd7eed5f79d2c94cefb23、dirty=false、127 个输入全部匹配；回执 SHA256 c1a1167531cea2c0f353c6ec428b00232c699421a2c46f0a8497b9d577ed6aa2。签名原件在 build/accept/installed-source-13/水利工具箱.app，正式已装包所有文件与该原件一致。签名/安装来源、前后读回在 build/install-product-basics-20261015/，实际 Air 缓存为 login-run/hydrooss-basics-f0af7623-13，仅该一回任务，helper 已按原接口结束/卸载；未停其他后台。
+
+实际固定入口：
+
+```sh
+bash build.sh --install --prepared "$PWD/build/accept/installed-source-13/水利工具箱.app"
+env -u HYDROMAC_BASICS_APP -u HYDROMAC_BASICS_RECEIPT chapter sop accept --app hydro-mac-oss --check product_basics --json
+```
+
+已装版固定验收最终退出 0，scope=installed，四项 passed，固定 14 项必测行为完整、56/56 真实断言通过；不是候选覆盖。最后原件 perf/acceptance/product-basics-23849ebeca8a42158408e91dee58584d/raw.json，SHA256 8e2367eb3addacdc6e4be4b9fb654771f3928040dbaf7b524828e4ec4c9a2925；spec digest a2eb9d53b41091848eed0e8ca82732016b2a1a8d13d7dd4a16516aaa348dae32。原生离屏设置/快捷键动作、独立进程持久化、隔离同步推拉/冲突/坏数据恢复/本地回落、GitHub 真正解码与错误恢复、手动升级配置保留仍使用真实已装原件的隔离副本。浅深色 PNG 原件在同目录；新设置深色/更新浅色截图再次读取核对。此前 121 个 Sources/cli/icon 输入逐 SHA 未变，沿用已通过 20/20 数值回归，不重复未变输入。Chapter 自行写入 perf/acceptance/product_basics.json/detail/log 与 delivery-evidence.json；其原运行中的另一个 app_sop 报告锁未抢夺，fresh chapter basics 回读已是 passed、无 problems。
+
+生产读回：包内 preferences status 为 annual、默认 ⌘R 开、⌘K 搜索；config status 显示有可迁移偏好但当前 keys 空、同步关闭、app_running=false。源码/主程序/图标/签名及实际文件清单全部匹配，未合成输入、上屏或进 Dock；生产 App 未启动，装前装后生产 HydroMac/hydro-cli 进程仍为空，不重启后台/登录项。
+
+数据保留的精确边界：隔离固定验收自己的 owner-before/after 一致；安装前后私有安装字节、公开配置目录及真实云端配置一致，用户偏好仍全部未设且同步/自动检查未开启。更长的装后观察发现公开默认域从空字典新增 appUpdateState（最新版本 1.0.0 的本机检查历史，多次时间更新），因此完整 plist 字节不相等；本会话未直接执行生产 update check，不能证实该记录由哪个外部后台写入，不把它归给隔离夹具，也不删除/覆盖记录或停止现有后台。原 before/after-install、data-preservation-readback.json 如实保留这个差异，未把不相等写成相等。
+
+本轮无本人待决定项或产品受阻。iCloud 仍只证明本机隔离目录链路，苹果服务器/跨设备传输未验；本机快装不等于公证/发行，GitHub 公开 Release 与更新源未改。未推送、公开发布、部署、发更新源或手机装机；已装私有版、其他 dirty/暂存及后台保留，原 claims PID 36288 保持不释放。本轮仅处理已授权四项及本机安装，不展开缓存中推广页旧缺项。
