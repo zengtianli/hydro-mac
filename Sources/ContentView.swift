@@ -23,6 +23,7 @@ let CALCULATORS: [Calculator] = [
 struct ContentView: View {
     @ObservedObject var navigation = HydroNavigation.shared
     var rainfallSnapshot: (RainfallPipelineInput, RainfallPipelineOutput)? = nil
+    var rainfallDriver: RainfallViewDriver? = nil
     @State private var showPalette = false
 
     var body: some View {
@@ -63,7 +64,7 @@ struct ContentView: View {
                 } else if selection.key == "irrigation" {
                     IrrigationView()
                 } else if selection.key == "rainfall" {
-                    RainfallView(snapshotInput: rainfallSnapshot?.0, snapshotOutput: rainfallSnapshot?.1)
+                    RainfallView(snapshotInput: rainfallSnapshot?.0, snapshotOutput: rainfallSnapshot?.1, driver: rainfallDriver)
                 } else if selection.key == "geocode" {
                     GeocodeView()
                 } else {

@@ -8,6 +8,11 @@ import SwiftUI
 ///   3. 命令面板用 ContentView 真实条目驱动 PaletteModel 过滤/选择；不存在的后端路径须抛可读错误。
 /// stdout 最后一行是单行 JSON；ok=false 时退出码 1。
 enum UISelfTest {
+    /// Only the paint state is active. The prohibited process never orders or activates this window.
+    private final class RenderWindow: NSWindow {
+        override var isKeyWindow: Bool { true }
+        override var isMainWindow: Bool { true }
+    }
     /// 任意 JSON：sample 原样回送 run，保持与 CLI 契约逐字段一致（视图私有模型在各自文件内不可见）。
     indirect enum JSON: Codable {
         case null, bool(Bool), number(Double), string(String), array([JSON]), object([String: JSON])
@@ -85,7 +90,7 @@ enum UISelfTest {
             host.frame = NSRect(x: 0, y: 0, width: width, height: height)
             // 离屏无边框窗口：只作为 AppKit 视图树宿主（NavigationSplitView 侧栏的 NSTableView 需要窗口才绘制），
             // 从不 orderFront / makeKey，不出现在屏幕上，也不抢焦点。
-            let window = NSWindow(contentRect: host.frame, styleMask: [.borderless], backing: .buffered, defer: false)
+            let window = RenderWindow(contentRect: host.frame, styleMask: [.titled], backing: .buffered, defer: false)
             window.isReleasedWhenClosed = false
             window.appearance = NSAppearance(named: .aqua)
             window.contentView = host
@@ -244,6 +249,71 @@ enum UISelfTest {
             render("rainfall-results", ContentView(navigation: nav, rainfallSnapshot: (input, output)))
         } else { checks["rainfall_result_capture"] = false }
 
+        // The mounted production view supplies its button closures and @State, not seeded results.
+        let driver = RainfallViewDriver()
+        let nav = HydroNavigation(readPreferences: false)
+        nav.selection = CALCULATORS.first { $0.key == "rainfall" }
+        let host = NSHostingView(rootView: ContentView(navigation: nav, rainfallDriver: driver)
+            .frame(width: 1180, height: 760).environment(\.controlActiveState, .active)
+            .background(Color(nsColor: .windowBackgroundColor)).environment(\.colorScheme, .light))
+        host.frame = NSRect(x: 0, y: 0, width: 1180, height: 760)
+        host.appearance = NSAppearance(named: .aqua)
+        let window = RenderWindow(contentRect: host.frame, styleMask: [.titled], backing: .buffered, defer: false)
+        window.isReleasedWhenClosed = false; window.appearance = NSAppearance(named: .aqua); window.contentView = host
+        host.layoutSubtreeIfNeeded(); RunLoop.main.run(until: Date().addingTimeInterval(0.3))
+        let recording = ProcessInfo.processInfo.environment["HYDROMAC_UI_RECORD"] == "1"
+        let frames = out.appendingPathComponent("frames", isDirectory: true)
+        if recording { try? FileManager.default.createDirectory(at: frames, withIntermediateDirectories: true) }
+        var frame = 0, events: [[String: Any]] = [], frameRecords: [[String: Any]] = [], workflowDone = false
+        let recordStart = Date()
+        func stamp(_ action: String) { events.append(["type": "native_navigation", "t": Date().timeIntervalSince(recordStart), "action": action]) }
+        func capture(_ file: URL) {
+            host.layoutSubtreeIfNeeded()
+            if let rep = host.bitmapImageRepForCachingDisplay(in: host.bounds) {
+                host.cacheDisplay(in: host.bounds, to: rep)
+                try? rep.representation(using: .png, properties: [:])?.write(to: file)
+            }
+        }
+        let timer = recording ? Timer.scheduledTimer(withTimeInterval: 1.0 / 15, repeats: true) { _ in
+            MainActor.assumeIsolated {
+                capture(frames.appendingPathComponent(String(format: "%05d.png", frame))); frame += 1
+                frameRecords.append(["t": Date().timeIntervalSince(recordStart), "width": 1180, "height": 760])
+            }
+        } : nil
+        Task { @MainActor in
+            if recording { try? await Task.sleep(for: .seconds(1.5)) }
+            stamp("load_sample_started"); await driver.loadSample?(); stamp("load_sample_completed")
+            checks["rainfall_view_load_button_state"] = driver.state?().0?.partitions.count == 15
+            if recording { try? await Task.sleep(for: .seconds(2)) }
+            stamp("run_pipeline_started"); await driver.runPipeline?(); stamp("run_pipeline_completed")
+            let actual = driver.state?().1
+            checks["rainfall_view_run_button_state"] = actual?.steps.count == 6 && actual?.row_count == 312
+            if recording { try? await Task.sleep(for: .seconds(2)) }
+            driver.showPartitions?(); stamp("partition_tab_selected")
+            try? await Task.sleep(for: .seconds(0.3))
+            capture(out.appendingPathComponent("native-ui-rainfall-actions.png"))
+            if recording { try? await Task.sleep(for: .seconds(2.2)) }
+            driver.showData?(); stamp("data_tab_selected")
+            if recording { try? await Task.sleep(for: .seconds(2)) }
+            checks["recording_never_visible_or_activated"] = !window.isVisible && app.activationPolicy() == .prohibited
+            if let input = driver.state?().0, let output = driver.state?().1 {
+                try? JSONEncoder().encode(input).write(to: out.appendingPathComponent("action-input.json"))
+                try? JSONEncoder().encode(output).write(to: out.appendingPathComponent("action-output.json"))
+            }
+            workflowDone = true
+        }
+        let actionDeadline = Date().addingTimeInterval(20)
+        while !workflowDone && Date() < actionDeadline { RunLoop.main.run(until: Date().addingTimeInterval(0.01)) }
+        timer?.invalidate(); window.contentView = nil; window.close()
+        checks["rainfall_view_actions_finished"] = workflowDone
+        if recording {
+            let manifest: [String: Any] = ["target_capture_fps": 15, "frames": frameRecords, "duration": Double(frame) / 15,
+                "capture_kind": "continuous", "capture_backend": "native-appkit-surface", "cursor": "none", "navigation_events": events,
+                "policy_prohibited": app.activationPolicy() == .prohibited, "visible_windows": app.windows.filter { $0.isVisible }.count, "unsafe": false,
+                "source": "Mounted production ContentView/RainfallView, real button closures and Rust backend; no synthetic input"]
+            try? JSONSerialization.data(withJSONObject: manifest, options: [.prettyPrinted, .sortedKeys]).write(to: out.appendingPathComponent("capture.json"))
+        }
+
         let elapsed = Date().timeIntervalSince(started)
         checks["elapsed_under_60s"] = elapsed < 60
         let ok = checks.values.allSatisfy { $0 } && box.results.count == 8
@@ -251,7 +321,7 @@ enum UISelfTest {
             "ok": ok, "checks": checks, "screenshots": screenshots.sorted(), "notes": notes,
             "elapsed_s": (elapsed * 100).rounded() / 100,
             "not_covered": [
-                "物理点击/键盘交互与按钮 → @State 更新（按钮动作为视图私有方法，自检直调同一 BackendClient 入口与请求结构）",
+                "物理点击/键盘；降雨按钮已调用 mounted View 的真实动作和 @State，其他计算器调用同一 BackendClient 入口",
                 "视图私有 Codable 模型解码（capacity/efficiency/reservoir/district/irrigation/geocode 以通用 JSON 回送；annual/rainfall 用真实 Swift 模型）",
                 "NSOpenPanel/NSSavePanel 打开/导出文件与 Excel 写出",
                 "geocode run-batch（需高德 key 与联网）",

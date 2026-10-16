@@ -79,6 +79,16 @@ private struct RainfallWriteRequest: Encodable {
     let output: RainfallPipelineOutput
 }
 
+/// An isolated in-process driver invokes the exact actions installed by the mounted view.
+/// It never creates input events, file panels or a second calculation implementation.
+@MainActor final class RainfallViewDriver {
+    var loadSample: (() async -> Void)?
+    var runPipeline: (() async -> Void)?
+    var showPartitions: (() -> Void)?
+    var showData: (() -> Void)?
+    var state: (() -> (RainfallPipelineInput?, RainfallPipelineOutput?))?
+}
+
 // MARK: - 视图
 
 /// 降雨数据分析 —— rainfall 计算器视图(平原河网降雨-径流 6 步处理管线,已接入 hydro-cli)。
@@ -105,10 +115,12 @@ struct RainfallView: View {
     @State private var loading = false
     @State private var errorMessage: String?
     @State private var exportNote: String?
+    private let driver: RainfallViewDriver?
 
     /// Offscreen capture uses real engine inputs/results in the same production state and view.
     /// Normal initialization has no injected data.
-    init(snapshotInput: RainfallPipelineInput? = nil, snapshotOutput: RainfallPipelineOutput? = nil) {
+    init(snapshotInput: RainfallPipelineInput? = nil, snapshotOutput: RainfallPipelineOutput? = nil, driver: RainfallViewDriver? = nil) {
+        self.driver = driver
         _pipelineInput = State(initialValue: snapshotInput)
         _output = State(initialValue: snapshotOutput)
         _sourceLabel = State(initialValue: snapshotInput == nil ? "未加载" : "示例数据")
@@ -122,6 +134,13 @@ struct RainfallView: View {
             content
         }
         .navigationTitle("降雨数据分析")
+        .onAppear {
+            driver?.loadSample = { await loadSample() }
+            driver?.runPipeline = { await runPipeline() }
+            driver?.showPartitions = { resultTab = .partitions }
+            driver?.showData = { resultTab = .data }
+            driver?.state = { (pipelineInput, output) }
+        }
     }
 
     private var header: some View {
