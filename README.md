@@ -70,6 +70,15 @@ bash scripts/golden-test.sh              # 20 case 数值回归(改任何 calc �
 `hydromac status` 只读当前版本、八计算器与账号形态；`hydromac list --search <文字>` 搜索功能。`hydromac calc <计算器> <动作> --input <JSON文件或-> --json` 与界面共用 BackendClient 和包内 Rust 引擎，覆盖导入、计算与导出；`--out` 保存结果 JSON，已有导出目标须 `--force`。无自建账号，离线计算不要求登录；地图联网动作需要用户自己的高德 key，错误信息不输出含 key 的 URL。
 
 <!-- lightweight:start -->
+## 资源占用
+
+| 安装包 | 空闲内存 | 空闲 CPU | 年报合成示例查询（含引擎进程启动） |
+|---|---|---|---|
+| **2.7 MB**（装好后 6.8 MB） | **34.6 MB** | **0%** | **4.4 ms** |
+
+原生 SwiftUI 界面调用随包 Rust 计算引擎；空闲与关键查询分别实测。
+
+<sub>v1.0.0 (8) · Mac18,5 / Apple M6 / macOS 27.2 · 运行资源为本地源码验收构建，不代表当前公开 Release v1.0.0 的运行性能；下载体积单独读取该公开包。示例数据为包内合成数据。 · 2026-10-12。数字来自所列版本与设备的测量记录；当前版本与测量范围以本页说明为准。内存口径为 phys_footprint；CPU 为 60 秒采样窗内 CPU 时间 ÷ 墙钟；大小按十进制 MB。原始数据见 [perf/lightweight.json](perf/lightweight.json)。</sub>
 <!-- lightweight:end -->
 
 固定验收 `python3 scripts/accept/product_basics.py` 默认验已装版；`--app <候选.app> --receipt <build-receipt.json>` 明确验未安装候选。验收使用真实产品的隔离副本、离屏控件动作、独立偏好域和测试更新传输，覆盖 14 项必测行为；iCloud 本机隔离链路通过不代表苹果跨设备传输已测。

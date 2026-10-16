@@ -78,6 +78,15 @@ The bundled `Contents/Resources/bin/hydromac --help` exposes the same preference
 `hydromac status` reads the version, eight calculators and account shape; `list --search <text>` searches the catalogue. `calc <calculator> <action> --input <JSON file or -> --json` uses the window's BackendClient and bundled Rust engine for imports, calculations and exports. Existing output requires `--force`. No product account is required for offline work; online mapping uses the user's Amap key, and errors omit credential-bearing URLs.
 
 <!-- lightweight:start -->
+## Resource use
+
+| Download | Idle memory | Idle CPU | Annual sample query including engine process startup |
+|---|---|---|---|
+| **2.7 MB** (installed 6.8 MB) | **34.6 MB** | **0%** | **4.4 ms** |
+
+Native SwiftUI with bundled Rust calculations; idle resources and a representative query are measured separately.
+
+<sub>v1.0.0 (8) · Mac18,5 / Apple M6 / macOS 27.2 · Runtime figures describe a local source acceptance build and do not represent the public v1.0.0 release. Download bytes are measured separately from that public archive. Sample data is synthetic. · measured 2026-10-12. Measured on the listed version and device; the current version and measurement scope are described on this page. Memory uses phys_footprint; CPU is CPU time ÷ wall time over a 60-second sampling window; sizes in decimal MB. Raw data: [perf/lightweight.json](perf/lightweight.json).</sub>
 <!-- lightweight:end -->
 
 ## License
