@@ -209,6 +209,8 @@ enum UISelfTest {
                 let s = try await client.run("rainfall", "sample", as: RainfallPipelineInput.self)
                 let r = try await client.run("rainfall", "run-pipeline", input: RainfallReq(input: s, steps: [1, 2, 3, 4, 5, 6]),
                                              as: RainfallPipelineOutput.self)
+                try JSONEncoder().encode(s).write(to: out.appendingPathComponent("rainfall-input.json"))
+                try JSONEncoder().encode(r).write(to: out.appendingPathComponent("rainfall-output.json"))
                 return (r.steps.count == 6 && r.row_count > 0, "steps=\(r.steps.count) rows=\(r.row_count)")
             }
             // geocode：sample（离线）+ 坐标转换（离线）；run-batch 需高德 key 与联网，不在此覆盖
@@ -231,6 +233,15 @@ enum UISelfTest {
         for (k, v) in box.notes { notes["backend_\(k)"] = v }
         checks["backend_missing_executable_error"] = !box.badPathError.isEmpty
         notes["backend_missing_executable_error"] = box.badPathError
+
+        if let data = try? Data(contentsOf: out.appendingPathComponent("rainfall-input.json")),
+           let input = try? JSONDecoder().decode(RainfallPipelineInput.self, from: data),
+           let resultData = try? Data(contentsOf: out.appendingPathComponent("rainfall-output.json")),
+           let output = try? JSONDecoder().decode(RainfallPipelineOutput.self, from: resultData) {
+            let nav = HydroNavigation(readPreferences: false)
+            nav.selection = CALCULATORS.first { $0.key == "rainfall" }
+            render("rainfall-results", ContentView(navigation: nav, rainfallSnapshot: (input, output)))
+        } else { checks["rainfall_result_capture"] = false }
 
         let elapsed = Date().timeIntervalSince(started)
         checks["elapsed_under_60s"] = elapsed < 60

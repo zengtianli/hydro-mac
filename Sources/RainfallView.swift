@@ -106,6 +106,15 @@ struct RainfallView: View {
     @State private var errorMessage: String?
     @State private var exportNote: String?
 
+    /// Offscreen capture uses real engine inputs/results in the same production state and view.
+    /// Normal initialization has no injected data.
+    init(snapshotInput: RainfallPipelineInput? = nil, snapshotOutput: RainfallPipelineOutput? = nil) {
+        _pipelineInput = State(initialValue: snapshotInput)
+        _output = State(initialValue: snapshotOutput)
+        _sourceLabel = State(initialValue: snapshotInput == nil ? "未加载" : "示例数据")
+        _resultTab = State(initialValue: snapshotOutput == nil ? .steps : .partitions)
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             header
