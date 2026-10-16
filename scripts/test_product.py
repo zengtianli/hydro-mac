@@ -1,10 +1,20 @@
 #!/usr/bin/env python3
 """Queue-owned build/test entry; current-source candidate is reused only after full receipt verification."""
 import os
+import fcntl
 from pathlib import Path
 import subprocess
 import sys
 ROOT = Path(__file__).resolve().parents[1]
+# Queue and foreground continuation share this product's fixed output directory.
+# Exclude concurrent writers of that directory; other products keep their SDK slots.
+(ROOT / 'build').mkdir(exist_ok=True)
+product_build_guard = (ROOT / 'build/current-source-build.lock').open('a')
+try:
+    fcntl.flock(product_build_guard, fcntl.LOCK_EX | fcntl.LOCK_NB)
+except BlockingIOError:
+    print('Build deferred: this product build/test entry is already running', file=sys.stderr, flush=True)
+    raise SystemExit(75)
 sys.path.insert(0, str(Path.home() / 'Apps/chapter/engine'))
 import app_sop
 sys.path.insert(0, str(Path.home() / 'Dev/tools/dev/lib/tools/macapp/ios'))
