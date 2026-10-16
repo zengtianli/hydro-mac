@@ -47,6 +47,9 @@ struct ContentView: View {
                     }
                 }
             }
+            // Opaque native rows retain label contrast during an offscreen AppKit render.
+            // Vibrant sidebar selection paints a black surface in cacheDisplay on macOS 27.
+            .listStyle(.inset)
             .navigationTitle("水利工具箱")
             .frame(minWidth: 210)
         } detail: {
