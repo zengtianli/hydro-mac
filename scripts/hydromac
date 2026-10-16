@@ -1,4 +1,15 @@
 #!/bin/sh
 # Same product executable; no second configuration or update engine.
-app_root=$(CDPATH= cd -- "$(dirname -- "$0")/../../.." && pwd)
+entry="$0"
+depth=0
+while [ -L "$entry" ]; do
+  depth=$((depth + 1))
+  [ "$depth" -le 16 ] || { echo 'hydromac: cyclic command link' >&2; exit 2; }
+  target=$(readlink "$entry")
+  case "$target" in
+    /*) entry="$target" ;;
+    *) entry="$(dirname -- "$entry")/$target" ;;
+  esac
+done
+app_root=$(CDPATH= cd -- "$(dirname -- "$entry")/../../.." && pwd)
 exec "$app_root/Contents/MacOS/HydroMac" "$@"

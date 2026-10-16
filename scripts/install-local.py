@@ -88,6 +88,10 @@ def main():
              'designated_requirement': requirement, 'all_files_match': files(destination) == manifest,
              'previous': old_info, 'retired_app': str(retired) if retired else None,
              'notarized': False, 'published': False, 'launched': False, 'processes_terminated': False}
+    assessment = subprocess.run(['spctl', '-a', '-vv', str(destination)], capture_output=True, text=True, timeout=60)
+    staple = subprocess.run(['xcrun', 'stapler', 'validate', str(destination)], capture_output=True, text=True, timeout=60)
+    proof['notarized'] = assessment.returncode == 0 and 'source=Notarized Developer ID' in assessment.stderr and staple.returncode == 0
+    proof['gatekeeper'] = assessment.stdout + assessment.stderr
     out = ROOT / 'build/install-product-basics-20261015/installed-proof.json'
     out.parent.mkdir(parents=True, exist_ok=True)
     if out.exists():
