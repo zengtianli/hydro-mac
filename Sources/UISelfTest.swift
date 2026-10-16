@@ -104,7 +104,7 @@ enum UISelfTest {
             }
             host.cacheDisplay(in: host.bounds, to: rep)
             var colors = Set<UInt32>(), leftColors = Set<UInt32>()
-            var sampled = 0, opaque = 0
+            var sampled = 0, opaque = 0, leftSamples = 0, leftBlack = 0
             let leftEdge = Int(Double(rep.pixelsWide) * 200 / Double(width))
             for x in stride(from: 0, to: rep.pixelsWide, by: 3) {
                 for y in stride(from: 0, to: rep.pixelsHigh, by: 3) {
@@ -114,7 +114,10 @@ enum UISelfTest {
                     let q = UInt32(c.redComponent * 31) << 15 | UInt32(c.greenComponent * 31) << 10
                         | UInt32(c.blueComponent * 31) << 5 | UInt32(c.alphaComponent * 31)
                     colors.insert(q)
-                    if x < leftEdge { leftColors.insert(q) }
+                    if x < leftEdge {
+                        leftColors.insert(q); leftSamples += 1
+                        if max(c.redComponent, c.greenComponent, c.blueComponent) < 0.08 { leftBlack += 1 }
+                    }
                 }
             }
             let file = "native-ui-\(name).png"
@@ -123,6 +126,11 @@ enum UISelfTest {
             notes["render_\(name)"] = "\(rep.pixelsWide)x\(rep.pixelsHigh) colors=\(colors.count)"
             checks["render_\(name)"] = written && rep.pixelsWide > 0 && rep.pixelsHigh > 0 && colors.count >= 3
             checks["render_\(name)_opaque_background"] = sampled > 0 && Double(opaque) / Double(sampled) >= 0.99
+            if name == "content" || name == "rainfall-results" {
+                // A near-solid black selected sidebar swallowed its dark label in a prohibited process.
+                // Light-mode real controls must preserve contrast, not merely contain a few colors.
+                checks["render_\(name)_sidebar_selection_readable"] = leftSamples > 0 && Double(leftBlack) / Double(leftSamples) < 0.02
+            }
             return leftColors.count
         }
         let sidebarColors = render("content", ContentView())
