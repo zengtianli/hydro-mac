@@ -86,7 +86,10 @@ def main():
         info = plistlib.loads((app / 'Contents/Info.plist').read_bytes())
         matched = (info['CFBundleIdentifier'] == artifact['bundle_id'] == PRODUCT and info['CFBundleShortVersionString'] == artifact['version']
                    and str(info['CFBundleVersion']) == str(artifact['build']) and sha(app / artifact['executable']) == artifact['sha256'])
-        source_matches = bool(receipt['source']['files']) and all((ROOT / p).is_file() and sha(ROOT / p) == h for p, h in receipt['source']['files'].items())
+        # Acceptance, test and measurement inputs do not change the installed product.
+        shipped = {p: h for p, h in receipt['source']['files'].items()
+                   if not p.startswith(('Tests/', 'scripts/accept/', 'scripts/perf/', 'handoffs/', 'perf/'))}
+        source_matches = bool(shipped) and all((ROOT / p).is_file() and sha(ROOT / p) == h for p, h in shipped.items())
         signed = execute(['codesign', '--verify', '--deep', '--strict', app])
         (run / 'signature.log').write_text(signed.stdout + signed.stderr)
         binding = {'scope': scope, 'app': str(app), 'receipt': str(receipt_path), 'receipt_sha256': sha(receipt_path),

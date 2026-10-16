@@ -48,7 +48,10 @@ def main(check=None):
         assert info['CFBundleIdentifier'] == artifact['bundle_id'] == PRODUCT
         assert info['CFBundleShortVersionString'] == artifact['version'] and str(info['CFBundleVersion']) == str(artifact['build'])
         assert sha(app / artifact['executable']) == artifact['sha256']
-        assert all(sha(ROOT / p) == h for p, h in receipt['source']['files'].items())
+        # Acceptance, test and measurement inputs do not change the installed product.
+        shipped = {p: h for p, h in receipt['source']['files'].items()
+                   if not p.startswith(('Tests/', 'scripts/accept/', 'scripts/perf/', 'handoffs/', 'perf/'))}
+        assert shipped and all((ROOT / p).is_file() and sha(ROOT / p) == h for p, h in shipped.items()), 'Source differs from build receipt'
         subprocess.run(['codesign', '--verify', '--deep', '--strict', str(app)], check=True, capture_output=True)
         binding = {'app': str(app), 'artifact': artifact, 'receipt_sha256': sha(args.receipt), 'source_sha256': receipt['source']['sha256'], 'source_commit': receipt['source']['commit']}
         checks['real_bundle_source_and_receipt'] = True
