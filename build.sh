@@ -20,6 +20,7 @@ fi
 APP_NAME="HydroMac"          # CFBundleName/可执行名(open -a HydroMac)
 DISPLAY_NAME="水利工具箱"      # 安装文件名 = 显示名
 BUNDLE_ID="io.github.zengtianli.HydroMac"
+VERSION="1.0.1"
 
 # Pick a usable Xcode. Never hardcode an Xcode bundle path: on the author's
 # machine that bundle is an older Xcode that the running macOS refuses to support,
@@ -73,6 +74,8 @@ xcrun swiftc -O -parse-as-library -target arm64-apple-macosx14.0 \
   Sources/ProductSettings.swift \
   Sources/ProductBasicsSelfTest.swift \
   Sources/ProductBasicsTransport.swift \
+  Sources/HydroCommandCLI.swift \
+  Sources/UISelfTest.swift \
   Sources/HydroMacApp.swift \
   -o "build/$APP_NAME"
 
@@ -95,7 +98,7 @@ cat > "$APP/Contents/Info.plist" <<PLIST
 	<key>CFBundleName</key><string>$APP_NAME</string>
 	<key>CFBundlePackageType</key><string>APPL</string>
 	<key>CFBundleInfoDictionaryVersion</key><string>6.0</string>
-	<key>CFBundleShortVersionString</key><string>1.0.0</string>
+	<key>CFBundleShortVersionString</key><string>$VERSION</string>
 	<key>LSMinimumSystemVersion</key><string>14.0</string>
 	<key>NSHighResolutionCapable</key><true/>
 	<key>NSPrincipalClass</key><string>NSApplication</string>

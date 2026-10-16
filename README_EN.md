@@ -63,6 +63,8 @@ System requirements: macOS 14+, Apple Silicon.
 
 ## Settings, shortcuts, iCloud and updates
 
+Release 1.0.1 adds stable Developer ID signing, hardened runtime and Apple notarization while retaining the existing bundle identity and configuration. The original 1.0.0 archive used ad-hoc signing.
+
 The author's local iteration installer is `./build.sh --install --prepared <signed.app>`. It requires a stable Developer ID and an actual current-source build receipt, verifies every bundle file, and retains the previous installation for recovery. Running apps and other products are left untouched. Default ad-hoc build candidates remain in `build/`; public release ZIPs use the documented manual installation flow.
 
 The app menu opens native configuration and update settings. Select the startup calculator and customize or disable its app shortcut (default Command-R); Command-K searches tools. Reserved and conflicting keys are rejected.
@@ -72,6 +74,11 @@ Optional iCloud Drive configuration sync is off by default and uses the system A
 Check for Updates reads this repository's official GitHub Releases and offers the download link. Automatic checking is optional and off by default. Public ad-hoc builds follow the documented download, extract and replace installation flow.
 
 The bundled `Contents/Resources/bin/hydromac --help` exposes the same preferences, shortcuts, configuration and update adapters. The fixed acceptance script defaults to the installed app; explicit `--app` and `--receipt` arguments select an uninstalled candidate. Tests use the real product in disposable domains and offscreen views. Local isolated iCloud round trips do not establish Apple cross-device delivery.
+
+`hydromac status` reads the version, eight calculators and account shape; `list --search <text>` searches the catalogue. `calc <calculator> <action> --input <JSON file or -> --json` uses the window's BackendClient and bundled Rust engine for imports, calculations and exports. Existing output requires `--force`. No product account is required for offline work; online mapping uses the user's Amap key, and errors omit credential-bearing URLs.
+
+<!-- lightweight:start -->
+<!-- lightweight:end -->
 
 ## License
 

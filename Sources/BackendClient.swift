@@ -4,6 +4,8 @@ import Foundation
 /// Tier-B 瘦视图:Swift 零业务计算,全委托 Rust。
 actor BackendClient {
     static let shared = BackendClient()
+    private let executableOverride: String?
+    init(executable: String? = nil) { executableOverride = executable }
 
     enum BackendError: LocalizedError {
         case notFound(String)
@@ -24,6 +26,10 @@ actor BackendClient {
     ///   3) 从可执行文件向上找本仓的 cli/target/release/hydro-cli(开发期:`cargo build --release` 后即可用)
     private func cliPath() throws -> String {
         let fm = FileManager.default
+        if let executableOverride {
+            guard fm.isExecutableFile(atPath: executableOverride) else { throw BackendError.notFound(executableOverride) }
+            return executableOverride
+        }
         if let res = Bundle.main.resourceURL?.appendingPathComponent("hydro-cli").path,
            fm.isExecutableFile(atPath: res) {
             return res
@@ -47,6 +53,10 @@ actor BackendClient {
     }
 
     /// 无输入调用。
+    func runJSON(_ calc: String, _ action: String, inputData: Data?) async throws -> UISelfTest.JSON {
+        try await runRaw(calc, action, inputData: inputData)
+    }
+
     func run<O: Decodable>(_ calc: String, _ action: String, as: O.Type) async throws -> O {
         try await runRaw(calc, action, inputData: nil)
     }

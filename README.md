@@ -34,13 +34,7 @@ cli/  (cargo)     hydro-cli —— 纯 Rust 计算核(serde/calamine/csv/chrono)
 
 ## 安装
 
-**从 Release**：下载 `HydroMac-<版本>-arm64.zip`，解压后把 `水利工具箱.app` 拖入「应用程序」。app 为 adhoc 签名（无付费开发者证书），首次运行前清一次隔离标记：
-
-```bash
-xattr -cr "/Applications/水利工具箱.app"
-```
-
-或右键 → 打开，再到「系统设置 → 隐私与安全性」放行。
+**从 Release**：下载 `HydroMac-<版本>-arm64.zip`，解压后把 `水利工具箱.app` 拖入「应用程序」。1.0.1 起采用 Developer ID 签名、加固运行时及 Apple 公证；保留原 bundle 身份和本机配置。旧 1.0.0 包为 ad-hoc 分发。
 
 **从源码构建**（需要 Xcode + Rust toolchain）：
 
@@ -72,6 +66,11 @@ bash scripts/golden-test.sh              # 20 case 数值回归(改任何 calc �
 「检查更新…」读取本仓 GitHub 正式 Release，显示当前版本、最新版本与下载入口；自动检查默认关闭，可设置间隔。公开 ad-hoc 包仍按上面的下载、解压、替换流程安装，不静默替换 App。
 
 包内 CLI 与窗口共用设置：`水利工具箱.app/Contents/Resources/bin/hydromac --help`，提供 `preferences`、`shortcuts`、`config status|export|import|sync`、`update check|options`。读取命令支持 `--json`，修改需 `--yes`。
+
+`hydromac status` 只读当前版本、八计算器与账号形态；`hydromac list --search <文字>` 搜索功能。`hydromac calc <计算器> <动作> --input <JSON文件或-> --json` 与界面共用 BackendClient 和包内 Rust 引擎，覆盖导入、计算与导出；`--out` 保存结果 JSON，已有导出目标须 `--force`。无自建账号，离线计算不要求登录；地图联网动作需要用户自己的高德 key，错误信息不输出含 key 的 URL。
+
+<!-- lightweight:start -->
+<!-- lightweight:end -->
 
 固定验收 `python3 scripts/accept/product_basics.py` 默认验已装版；`--app <候选.app> --receipt <build-receipt.json>` 明确验未安装候选。验收使用真实产品的隔离副本、离屏控件动作、独立偏好域和测试更新传输，覆盖 14 项必测行为；iCloud 本机隔离链路通过不代表苹果跨设备传输已测。
 

@@ -89,8 +89,17 @@ def main():
              'previous': old_info, 'retired_app': str(retired) if retired else None,
              'notarized': False, 'published': False, 'launched': False, 'processes_terminated': False}
     out = ROOT / 'build/install-product-basics-20261015/installed-proof.json'
+    out.parent.mkdir(parents=True, exist_ok=True)
+    if out.exists():
+        saved = out.with_name('previous-proof-' + str(json.loads(out.read_text())['build']) + '.json')
+        if not saved.exists(): saved.write_bytes(out.read_bytes())
     out.write_text(json.dumps(proof, ensure_ascii=False, indent=2) + '\n')
     print(json.dumps(proof, ensure_ascii=False))
+    # Only the public product CLI is linked. An unrelated command or existing target is preserved.
+    link = Path.home() / '.local/bin/hydromac'
+    if not link.exists() and not link.is_symlink():
+        link.parent.mkdir(parents=True, exist_ok=True)
+        link.symlink_to(destination / 'Contents/Resources/bin/hydromac')
 
 if __name__ == '__main__':
     main()

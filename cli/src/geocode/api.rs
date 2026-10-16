@@ -50,7 +50,7 @@ pub async fn reverse_geocode(
                 adcode: String::new(),
                 lng: Some(lng),
                 lat: Some(lat),
-                error: Some(format!("network_error: {}", e)),
+                error: Some(format!("network_error: {}", e.without_url())),
             };
         }
     };
@@ -67,7 +67,7 @@ pub async fn reverse_geocode(
                 adcode: String::new(),
                 lng: Some(lng),
                 lat: Some(lat),
-                error: Some(format!("parse_error: {}", e)),
+                error: Some(format!("parse_error: {}", e.without_url())),
             };
         }
     };
@@ -145,7 +145,7 @@ pub async fn forward_geocode(
                 adcode: String::new(),
                 lng: None,
                 lat: None,
-                error: Some(format!("network_error: {}", e)),
+                error: Some(format!("network_error: {}", e.without_url())),
             };
         }
     };
@@ -162,7 +162,7 @@ pub async fn forward_geocode(
                 adcode: String::new(),
                 lng: None,
                 lat: None,
-                error: Some(format!("parse_error: {}", e)),
+                error: Some(format!("parse_error: {}", e.without_url())),
             };
         }
     };
@@ -255,7 +255,7 @@ pub async fn search_company(
                 adcode: String::new(),
                 lng: None,
                 lat: None,
-                error: Some(format!("network_error: {}", e)),
+                error: Some(format!("network_error: {}", e.without_url())),
             };
         }
     };
@@ -272,7 +272,7 @@ pub async fn search_company(
                 adcode: String::new(),
                 lng: None,
                 lat: None,
-                error: Some(format!("parse_error: {}", e)),
+                error: Some(format!("parse_error: {}", e.without_url())),
             };
         }
     };

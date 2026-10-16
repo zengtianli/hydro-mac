@@ -76,7 +76,7 @@ struct ContentView: View {
     }
 
     // ⌘K 命令面板:8 计算器,选中即跳转。
-    private var paletteItems: [PaletteItem] {
+    var paletteItems: [PaletteItem] {
         CALCULATORS.map { c in
             PaletteItem(id: "calc-\(c.key)", title: c.name,
                         subtitle: c.ready ? "本地计算器" : "本地计算器 · 建设中",
