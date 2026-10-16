@@ -77,6 +77,7 @@ enum UISelfTest {
         @discardableResult
         func render<V: View>(_ name: String, _ view: V, width: CGFloat = 1180, height: CGFloat = 760) -> Int {
             let host = NSHostingView(rootView: view.frame(width: width, height: height)
+                .environment(\.controlActiveState, .active)
                 // cacheDisplay 只绘制视图，不包含 NSWindow 的背景；透明黑字 PNG 无法直接审阅。
                 .background(Color(nsColor: .windowBackgroundColor))
                 .environment(\.colorScheme, .light))
