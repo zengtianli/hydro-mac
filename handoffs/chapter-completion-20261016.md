@@ -35,3 +35,21 @@ Chapter 已续派同任务身份 PID 90863；写前沿该身份 check 本仓，�
 发行接续顺序：原队列/回执新包 → `python3 scripts/delivery/resume.py` → 原共享 media/demo_video.py audio/render/verify 与真实关键帧可读性复核，只替换受影响降雨素材并登记真实录制时刻/SHA → `git log --stat '@{u}..HEAD'` 核完成提交（未发现本仓 .github/workflows、ci_scripts、Xcode Cloud 或部署监听配置，普通分支推送无仓内自动构建/部署触发）→ 正常 git push origin main → 既有 gh release create v1.0.1 对 build/release 公证 ZIP 发布并 HTTPS 下载 SHA/版本/签名回读 → 生成真实公开 release 记录/本地 sop.release 引用 → 必要范围内 Lintel 更新 → Chapter 固定证据整体重检。新包版本/构建与 SHA 取当时原 receipt/package.json，不沿用本文 (18) 数字。禁止强推、私有原件进入公开仓、App Store 送审或改公开范围。
 
 原入场 dist/docs/demo/perf untracked 原件和空暂存保留，project.yaml 沿原本机忽略规则不强制公开；本轮新源码、适配器、文档均为本产品本地提交。当前源码待验证，不推送这些未验的连续采集改动，不发布 (18) 作为已验证最新源码；待完成后按长期授权直接推送/发行，无需再向本人请示。
+
+## 2026-10-16 19:50 公开变体入口接续
+
+新 Chapter 任务 03ee67e4186c47388237b70dcb79d059，claims 复用 PID 75601，写前已逐路径 check，不另开或释放登记。范围为本仓构建准入、必要离屏 UI 修复、签名包/装机回执、Lintel 旧跳转入口与本交接；共享资源仍是原 BuildSlot、真实采样/开机保护、原签名/安装器、Lintel 与既有公开 origin。有限顺序：原件与入口回读 → 并行构建/真实装机验收 → 入口同步与白名单推送，预计 20–40 分钟；素材/性能交原队列，不在模型轮询采样。
+
+入场 HEAD b2d2630 已与 origin/main 一致，原队列已实际产出 1.0.1 (25)，源 SHA 全匹配，但已装为 (18)。本轮先沿原安装器安装 (25)，随后修构建入口 scripts/test_product.py：本项目是裸 swiftc/cargo，不能伪装 Xcode scheme 调 sim_lane.build，实际编译用 sim_lane.BuildSlot(wait=0)，不外套 acquire(None)/lock_chain、不以 heavy_builds 拒绝他人；本产品固定输出目录另用非阻塞文件锁防止队列和接续同时写入，其他产品仍有自己的并行槽。Busy 原样退出 75，交原队列有界接续。
+
+e58fd14 的真实槽内编译、Developer ID 签名/公证/测试完成，安装为 1.0.1 (26)。实际主程序 SHA256 c3a4c7791b0f5c6bab50b1815437dc8f70310aa1b74b22f442d4fa51af88cca3，receipt SHA256 6ccc7253b265ef867fd0bfdf53d6ab4a35e67a0a274060ee1acb39a81b1564ac，ZIP SHA256 9cb126bc5ecbec1aa3f757d8b581ed0cefe17256419efb24202060eaed8ed5bb（3135475 bytes）。实际安装回读在 build/install-product-basics-20261015/installed-proof.json：bundle io.github.zengtianli.HydroMac、原 B9LJH93LA4 完整 designated requirement、逐文件一致、spctl Notarized Developer ID/stapler 通过；公开旧 (25) 保留在 Trash，无进程被终止、无真实 GUI 激活或偏好/iCloud 改动。
+
+已装 (26) 的固定验收由 app_sop 写正式原件：functionality 36/36（run-zfgy_pnc）、recovery 8/8（run-t6kj6w8w）、privacy 37/37（run-6_r_d83l）、agent_cli 15 项对照（run-t04sw0td）、product_basics 56/56、完整 14 行为（run-laowhl6d）、installed_icon 通过（run-j8_q46ww）。native_ui 实际为 41/44，原件 run-q9hnxyh8/native_ui.json 与 native_ui-652e701c0209474c89aca0e6fc51f9be/raw.json；真实 mounted 降雨按钮加载/运行、状态和隐藏策略均通过，失败为两个侧栏选中行可读性及随之非零退出，没有把这些断言改成免验或删掉。
+
+隔离诊断 build/paint-probe.swift 也沿 BuildSlot 编译，不作产品验收证据：同一真实原生 List 的 sidebar 样式仍黑块，inset/plain 样式正常可读。589503a 改真实 ContentView 为原生 inset 样式，保留全部 44 项产品断言。9302a37 补产品自身输出所有权。新源码还没有对应新包：两次真实构建准入先后遇到活的采样等待标记返回 75，中间仅在读回标记已解除后才接续；不绕采样/真实设备门。最新 test 队列任务 6bde9f2c7e1345baa229f77ad79370bb 保留，先前 a5c405e33b04498fa37e51d07e9e3b35 只证明 e58fd14/(26) 已测试，不能冒充 589503a/9302a37 已通过。后续 `python3 scripts/delivery/resume.py` 沿原队列/当前源码回执完成新安装、固定验收和原片采集，不发布旧 (26) 为当前源码。
+
+旧入口实际 HTTPS 回读与当前 Lintel 原件不同：p/hydro-mac-oss.html 预期 SHA256 08b18e41c1c901312c88d62db25148a22f84498214f81b17c0044dd0ded908ac，线上 27a97f3c47bc1582b5661042f4d942915db72217348df93306eca3ccac316c89。当前格式正确的产品计划为 /Users/tianli/Library/Application Support/Lintel/previews/hydro-mac/5ed172e01fcd4a0495b6397b87f7d50d/lintel-plan.json（本仓回读 build/lintel-public-variant-20261016.json）。已按既有入口实际执行 lintel site ship --site apps-catalogue --work "$PWD/build/lintel-entry-sync-20261016" --json；退出 2，原件 build/lintel-entry-sync-result-20261016.json 明确为「目录跳转页未通过同产品完整推广目标检查：p/lintel.html」，尚未到发布，不是 agent_forbidden，也不能去手传 HTML 绕闸。
+
+用户要求的 lintel site plan --site apps-catalogue --json 已实际执行并保存 build/lintel-catalogue-plan-20261016.json，ready=true、issues=[]，但 out=null，仅配置计划；不能冒充实际产物与线上入口已验。目录入口同步仍需 owner lintel 修自己的 p/lintel.html 目标检查后，主会话再运行上述 apps-catalogue ship，随后 `chapter promo ship --app hydro-mac-oss --json` 回读本产品旧入口。网站输入变化时重建计划，不复用过期确认摘要。本轮未直接改其他组件、门户源码/DNS/authgate，未扩大公开范围。
+
+推送核对：本轮领先仅 scripts/test_product.py、Sources/ContentView.swift 和本产品 handoffs；未发现仓内 .github/workflows、ci_scripts、Xcode Cloud 或部署监听配置，GitHub hooks API 回读 []。沿公开原白名单正常推送本轮改动，不 force、不带 dist/docs/demo/perf 原未跟踪原件；原 project.yaml 继续本机忽略。GitHub App Release 仍为 v1.0.0，新版需等最新包 44 项原生断言通过后按既有授权发版与 HTTPS SHA 回读，无需再问本人，不送 App Store 审核。性能和素材继续原队列，iCloud 仍限本机隔离链路。

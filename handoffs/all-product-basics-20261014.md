@@ -80,3 +80,9 @@ env -u HYDROMAC_BASICS_APP -u HYDROMAC_BASICS_RECEIPT chapter sop accept --app h
 默认已装入口 `chapter sop accept --app hydro-mac-oss --check product_basics --json` 实际退出 0，四项必需功能的固定 14 行为完整覆盖，56/56 真实断言通过；正式 evidence 为 perf/acceptance/run-fjw3b3u0/product_basics.json（SHA256 d2e52cff148bf9774d6b0fc902b93aea050ef25c829aaea5a5d14b6e16c63a39），由 app_sop 写 delivery-evidence。仍只证明本机隔离同步链路，未声称苹果跨设备传输或生产实网更新成功。
 
 之后为修正不可信的离屏黑色选中栏并真实连续采集，ContentView/RainfallView/UISelfTest 源码又发生必要改动；(18) 的通过记录不代表后续源码已经验收。原 test 队列任务 a037dee2af36408cb98843c86d31aec3 在共享 worker 忙时保留 queued；不可旁路 swiftc/xcodebuild，不重复相同失败，也不安装旧候选冒充当前来源。接续 `python3 scripts/delivery/resume.py`：只做一次原队列动作，当前源码/稳定签名回执成立才安装，随后固定已装验收（含 product_basics），并生成真实连续离屏原片。忙时退出 75，交回原队列；不自动推送/发布/部署。GitHub latest 仍 v1.0.0，本轮尚未发新版。
+
+## 2026-10-16 19:50 原并行构建槽接续
+
+新任务 claims PID 75601 / chapter-task:03ee67e4186c47388237b70dcb79d059；源和入口事实详见 chapter-completion-20261016.md。当前实际装机已从 (18) 经原安装器更新到稳定签名、公证的 1.0.1 (26)，逐文件、完整 designated requirement、spctl/stapler 和真实构建来源全部读回；真实设置/iCloud/账号/后台保留。该已装包默认 `chapter sop accept --app hydro-mac-oss --check product_basics --json` 实际退出 0，完整 14 行为、56/56 断言，正式原件 perf/acceptance/run-laowhl6d/product_basics.json 由 app_sop 写入，未手改 delivery-evidence。
+
+随后修真实原生侧栏离屏可读性与每产品构建输出保护，源码已变；(26) 的通过不等于新源码已通过。原 BuildSlot 在开机/采样保护标记存在时实际返回 75，不外套全机锁或绕静门；最新 test 任务 6bde9f2c7e1345baa229f77ad79370bb 交原队列接续，完成后用 scripts/delivery/resume.py 回读最新来源与默认已装版验收。仍只报告本机隔离 iCloud 往返，不把苹果跨设备传输、旧包或当前未发行源码说成已经验证。
