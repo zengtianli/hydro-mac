@@ -23,3 +23,15 @@ Chapter 已续派同任务身份 PID 90863；写前沿该身份 check 本仓，�
 素材进一步复核：旧视频的降雨分区名称实际为公开合成样例，与当前原件一致，非私有台账；视觉字形曾误读，已经 Vision OCR 与真实 JSON 原件核实。离屏选中栏仍黑且文字不可读，不能用位图有颜色代替可读性。425deb9 已补仅渲染的 active 窗口状态与 mounted RainfallView 的真实按钮闭包驱动，连续 offscreen 采集真实示例加载、六步运行、结果选项卡；不合成输入，不用静态截图配成教学视频。27cc98b 增加产品采集适配器 scripts/media/capture.py，调用原共享 media/demo_video 引擎，不复制渲染器；修正英文安装说明。
 
 源码因此再变，(18) 的通过记录不能冒充最新源码通过。原队列任务 a037dee2af36408cb98843c86d31aec3 已登记 test；共享 worker 忙，等待原队列空闲后 `chapter work --once --app hydro-mac-oss --json`，禁止旁路重编译。完成后按既有入口安装新回执包、复验受影响检查；`python3 scripts/media/capture.py --out build/media-current-20261016` 采连续原片，原共享 demo_video.py audio/render/verify 验一段再交素材。发行仍未上传，GitHub latest 仍 v1.0.0；后续正常推送/公证包 Release/HTTPS SHA 回读已授权，不送 App Store 审核。
+
+## 18:05 有界交接与剩余事实
+
+新离屏入口追加可读性断言，拒绝选中行黑块吞字；真实 mounted RainfallView load/run 状态将由固定 native_ui 验收，而非存在源码就算通过。scripts/media/capture.py / scripts/delivery/resume.py 的 Python 语法已核，真实新包 UI/连续视频仍须等原队列构建。resume 无循环：仅在回执旧时执行一次原 worker；当前真实源码/包/回执 SHA 成立才沿安装入口替换，串行运行七项固定验收，安装变化时补系统实际图标验收，最后输出 continuous native-appkit-surface 的原片、时间戳事件、真实输入/成果与共享 media plan。未调用 render/发布等阶段时不声称成片或发行完成。
+
+整体只读 `chapter sop run --app hydro-mac-oss --check-only --json` 原件 build/sop-check-20261016.json：test/receipt/install/media/readme/release 仍待当前源码交付，账号政策通过；perf/就绪冷启动依用户最新指示交原调度，不重复测。显式登记 Mac 采样线触发其他四条平台缺登记，已按真实边界补 not_applicable 原因：本桌面/AppKit/内嵌进程组件没有 iPhone/iPad/watchOS/visionOS target 或包，不把不存在的移动 App 当已实现；这是登记引起的必要回归修正。原图标 SHA 未改，通过记录保留。
+
+网站只执行 `chapter promo build` 和只读 `lintel site check`，原件 build/promo-build-20261016.json、build/promo-check-20261016.json；Lintel 当前映射 product_id hydro-mac，其计划 publisher_products 同时包括 hydro-mac 与 hydro-mac-oss，目标含自用版另一站点。未发布、未改另一组件/DNS/authgate，不能为本公开版更新而扩大范围。此分量属于 Lintel/Chapter 的组件隔离发布入口问题，后续由 owner lintel 修到仅本组件目标，再 `chapter promo ship --app hydro-mac-oss --json`。
+
+发行接续顺序：原队列/回执新包 → `python3 scripts/delivery/resume.py` → 原共享 media/demo_video.py audio/render/verify 与真实关键帧可读性复核，只替换受影响降雨素材并登记真实录制时刻/SHA → `git log --stat '@{u}..HEAD'` 核完成提交（未发现本仓 .github/workflows、ci_scripts、Xcode Cloud 或部署监听配置，普通分支推送无仓内自动构建/部署触发）→ 正常 git push origin main → 既有 gh release create v1.0.1 对 build/release 公证 ZIP 发布并 HTTPS 下载 SHA/版本/签名回读 → 生成真实公开 release 记录/本地 sop.release 引用 → 必要范围内 Lintel 更新 → Chapter 固定证据整体重检。新包版本/构建与 SHA 取当时原 receipt/package.json，不沿用本文 (18) 数字。禁止强推、私有原件进入公开仓、App Store 送审或改公开范围。
+
+原入场 dist/docs/demo/perf untracked 原件和空暂存保留，project.yaml 沿原本机忽略规则不强制公开；本轮新源码、适配器、文档均为本产品本地提交。当前源码待验证，不推送这些未验的连续采集改动，不发布 (18) 作为已验证最新源码；待完成后按长期授权直接推送/发行，无需再向本人请示。

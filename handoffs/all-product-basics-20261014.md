@@ -70,3 +70,13 @@ env -u HYDROMAC_BASICS_APP -u HYDROMAC_BASICS_RECEIPT chapter sop accept --app h
 数据保留的精确边界：隔离固定验收自己的 owner-before/after 一致；安装前后私有安装字节、公开配置目录及真实云端配置一致，用户偏好仍全部未设且同步/自动检查未开启。更长的装后观察发现公开默认域从空字典新增 appUpdateState（最新版本 1.0.0 的本机检查历史，多次时间更新），因此完整 plist 字节不相等；本会话未直接执行生产 update check，不能证实该记录由哪个外部后台写入，不把它归给隔离夹具，也不删除/覆盖记录或停止现有后台。原 before/after-install、data-preservation-readback.json 如实保留这个差异，未把不相等写成相等。
 
 本轮无本人待决定项或产品受阻。iCloud 仍只证明本机隔离目录链路，苹果服务器/跨设备传输未验；本机快装不等于公证/发行，GitHub 公开 Release 与更新源未改。未推送、公开发布、部署、发更新源或手机装机；已装私有版、其他 dirty/暂存及后台保留，原 claims PID 36288 保持不释放。本轮仅处理已授权四项及本机安装，不展开缓存中推广页旧缺项。
+
+## 2026-10-16 全维度接续中的已装基础功能回读
+
+本轮 claims 身份为 PID 90863 / chapter-task:bc95dd88e27e47e2905445f1c852ca82；范围与推进事实详见 chapter-completion-20261016.md，不释放原 claims。最新 HARNESS 要求 Mini 执行签名/公证，本轮只用 Mini 已有原 Developer ID B9LJH93LA4，不联系 Air。
+
+17:48 沿 `bash build.sh --install --prepared "$PWD/build/release/水利工具箱.app"` 安装 1.0.1 (18)；实际 bundle 仍 io.github.zengtianli.HydroMac，主程序 SHA256 bb64ad9de83d563aae78a9d41026c425ae3f4a9c545323443d7d43788b9920f9，回执在 perf/build-receipt.json，签名/公证/包原件在 build/release，装机原件在 build/install-product-basics-20261015/installed-proof.json。Developer ID、designated requirement、hardened runtime/时间戳及每个文件一致；Gatekeeper 为 Notarized Developer ID，stapler validate 通过。先前公开 (16) 已保留在 Trash，未启动实际 App、终止任何进程或改变用户设置/账号/iCloud/后台。
+
+默认已装入口 `chapter sop accept --app hydro-mac-oss --check product_basics --json` 实际退出 0，四项必需功能的固定 14 行为完整覆盖，56/56 真实断言通过；正式 evidence 为 perf/acceptance/run-fjw3b3u0/product_basics.json（SHA256 d2e52cff148bf9774d6b0fc902b93aea050ef25c829aaea5a5d14b6e16c63a39），由 app_sop 写 delivery-evidence。仍只证明本机隔离同步链路，未声称苹果跨设备传输或生产实网更新成功。
+
+之后为修正不可信的离屏黑色选中栏并真实连续采集，ContentView/RainfallView/UISelfTest 源码又发生必要改动；(18) 的通过记录不代表后续源码已经验收。原 test 队列任务 a037dee2af36408cb98843c86d31aec3 在共享 worker 忙时保留 queued；不可旁路 swiftc/xcodebuild，不重复相同失败，也不安装旧候选冒充当前来源。接续 `python3 scripts/delivery/resume.py`：只做一次原队列动作，当前源码/稳定签名回执成立才安装，随后固定已装验收（含 product_basics），并生成真实连续离屏原片。忙时退出 75，交回原队列；不自动推送/发布/部署。GitHub latest 仍 v1.0.0，本轮尚未发新版。
