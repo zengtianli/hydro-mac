@@ -63,7 +63,7 @@ bash scripts/golden-test.sh              # 20 case 数值回归(改任何 calc �
 
 可选 iCloud 配置同步默认关闭，跟随系统 Apple ID / iCloud Drive；只迁移启动计算器、快捷键与更新选项，不上传凭据、权限、文件路径、输入或计算结果。支持导入/导出，云端不可用时仍可本地使用，关闭同步保留数据。
 
-「检查更新…」读取本仓 GitHub 正式 Release，显示当前版本、最新版本与下载入口；自动检查默认关闭，可设置间隔。公开 ad-hoc 包仍按上面的下载、解压、替换流程安装，不静默替换 App。
+「检查更新…」读取本仓 GitHub 正式 Release，显示当前版本、最新版本与下载入口；自动检查默认关闭，可设置间隔。公开版按上面的下载、解压、替换流程安装。
 
 包内 CLI 与窗口共用设置：`水利工具箱.app/Contents/Resources/bin/hydromac --help`，提供 `preferences`、`shortcuts`、`config status|export|import|sync`、`update check|options`。读取命令支持 `--json`，修改需 `--yes`。
 

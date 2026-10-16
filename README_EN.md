@@ -34,13 +34,7 @@ cli/  (cargo)     hydro-cli —— 纯 Rust 计算核(serde/calamine/csv/chrono)
 
 ## Installation
 
-**From a Release**: Download `HydroMac-<版本>-arm64.zip`, extract it, and drag `水利工具箱.app` into Applications. The app is ad-hoc signed without a paid developer certificate. Clear the quarantine flag once before first launch:
-
-```bash
-xattr -cr "/Applications/水利工具箱.app"
-```
-
-Alternatively, right-click → Open, then allow it in System Settings → Privacy & Security.
+**From a Release**: Download `HydroMac-<version>-arm64.zip`, extract it, and drag `水利工具箱.app` into Applications. Release 1.0.1 uses Developer ID signing, hardened runtime and Apple notarization while preserving the bundle identity and local configuration. The original 1.0.0 archive used ad-hoc signing.
 
 **Build from source** (requires Xcode + the Rust toolchain):
 
@@ -71,7 +65,7 @@ The app menu opens native configuration and update settings. Select the startup 
 
 Optional iCloud Drive configuration sync is off by default and uses the system Apple ID. Only the calculator preference, shortcut and update options migrate; credentials, permissions, paths and calculation data stay local. Import/export and local fallback are supported. Disabling sync preserves both copies.
 
-Check for Updates reads this repository's official GitHub Releases and offers the download link. Automatic checking is optional and off by default. Public ad-hoc builds follow the documented download, extract and replace installation flow.
+Check for Updates reads this repository's official GitHub Releases and offers the download link. Automatic checking is optional and off by default. Public releases follow the documented download, extract and replace installation flow.
 
 The bundled `Contents/Resources/bin/hydromac --help` exposes the same preferences, shortcuts, configuration and update adapters. The fixed acceptance script defaults to the installed app; explicit `--app` and `--receipt` arguments select an uninstalled candidate. Tests use the real product in disposable domains and offscreen views. Local isolated iCloud round trips do not establish Apple cross-device delivery.
 
