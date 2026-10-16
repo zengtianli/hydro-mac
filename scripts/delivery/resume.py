@@ -48,6 +48,8 @@ if not already:
     run(['bash', 'build.sh', '--install', '--prepared', APP])
 for check in ['functionality', 'recovery', 'privacy', 'native_ui', 'agent_cli', 'cli_entry', 'product_basics']:
     run(['chapter', 'sop', 'accept', '--app', 'hydro-mac-oss', '--check', check, '--json'])
+if not already:
+    run(['chapter', 'sop', 'accept', '--app', 'hydro-mac-oss', '--check', 'installed_icon', '--json'])
 out = ROOT / 'build' / ('media-current-' + time.strftime('%Y%m%d-%H%M%S'))
 run([sys.executable, ROOT / 'scripts/media/capture.py', '--out', out])
 print(json.dumps({'app': str(INSTALLED), 'version': a['version'], 'build': a['build'],
