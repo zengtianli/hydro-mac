@@ -53,3 +53,7 @@ e58fd14 的真实槽内编译、Developer ID 签名/公证/测试完成，安装
 用户要求的 lintel site plan --site apps-catalogue --json 已实际执行并保存 build/lintel-catalogue-plan-20261016.json，ready=true、issues=[]，但 out=null，仅配置计划；不能冒充实际产物与线上入口已验。目录入口同步仍需 owner lintel 修自己的 p/lintel.html 目标检查后，主会话再运行上述 apps-catalogue ship，随后 `chapter promo ship --app hydro-mac-oss --json` 回读本产品旧入口。网站输入变化时重建计划，不复用过期确认摘要。本轮未直接改其他组件、门户源码/DNS/authgate，未扩大公开范围。
 
 推送核对：本轮领先仅 scripts/test_product.py、Sources/ContentView.swift 和本产品 handoffs；未发现仓内 .github/workflows、ci_scripts、Xcode Cloud 或部署监听配置，GitHub hooks API 回读 []。沿公开原白名单正常推送本轮改动，不 force、不带 dist/docs/demo/perf 原未跟踪原件；原 project.yaml 继续本机忽略。GitHub App Release 仍为 v1.0.0，新版需等最新包 44 项原生断言通过后按既有授权发版与 HTTPS SHA 回读，无需再问本人，不送 App Store 审核。性能和素材继续原队列，iCloud 仍限本机隔离链路。
+
+实际推送回读：`git fetch origin main && git push origin main` 成功，b2d2630..effd9ec 的四个本轮提交已到 origin/main；`git rev-list '@{u}..HEAD'` 为空，`git status -sb` 不 ahead，GitHub `git ls-remote origin refs/heads/main` 与本机 HEAD 均为 effd9ecde64e43960d00e9a664b04017b02d8968。此段交接更新也限定本文件正常提交/推送，最终状态以同样的实时 Git 回读为准，不让最后交接留在本机领先。
+
+队列已实际记录共享资源 Busy：6bde9f2c7e1345baa229f77ad79370bb 在 19:53:09 返回 75，原调度安排 next_attempt_at 19:53:40，resource_retries 1/3；没有同因模型重跑。最终只读整体原件 build/sop-public-variant-final-20261016.json 仍显示当前源码 test/receipt/install 待补、旧素材/性能待原队列、App Release 未更新；这不是全产品已通过。已装版本仍明确为 (26)，最新真实侧栏修复尚未装机。目录整体发布的 p/lintel.html 责任交 owner lintel，不在本仓绕过或改别人页面，不生成本人确认问题。
