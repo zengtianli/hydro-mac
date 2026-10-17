@@ -47,3 +47,27 @@ chapter jobs --app hydro-mac-oss --active --json
 待 Chapter 在独立装机授权中对齐实际产物和回执后，由原 jobs 自动复验本轮五项；本轮不手工新增或重派作业。需要单项诊断时使用 `chapter sop accept --app hydro-mac-oss --check recovery --json`，同一入口的 check 可依次换成 privacy、product_basics、native_ui、functionality；对齐前不重复执行相同失败命令。不要使用 `scripts/delivery/resume.py` 接手本轮，它还会装机并执行范围外验收及素材动作。
 
 本轮仅交接文本有变，本地提交限定本文件，未推送；未构建、装机、发版、部署、改变授权、运行本人已装 App 或释放 Chapter claims。仓内原因核验和交接工作已完成，可以关会话；五项正式验收仍受上述真实装机差异阻塞。
+
+## 本次固定失败复核：410c59ce（2026-10-17）
+
+本次 owner 为派出者 PID `9024` / `chapter-task:410c59ce0ae84952bb19e3708e6ca676`；写前以该精确身份检查本文件 claims，不另声明或释放。任务仍仅限五项 delivery 失败，保留其他会话改动、暂存和后台。具体写入范围为本节；共享资源仅只读文件、验签和 Chapter 查询，无构建、模拟器、GUI 或性能采样。完成条件为核对本次五份原件、当前产物与回执，记录授权范围内的结果和接续方式，并本地提交；五项通过不在此次核验结果中。
+
+本次提供的日志与证据如下，均在产品用例开始前报同一错误 `Product/receipt mismatch (build): expected 33, found 31`：
+
+| 检查 | 原日志文件（app-sop/workbench/logs） | 本仓固定证据目录 |
+| --- | --- | --- |
+| recovery | `23148a91ea814eb1a54a4564b64f673b.log` | `perf/acceptance/run-cpjng_dd/` |
+| privacy | `adf770b49c5f40bdb686467f9f29f62a.log` | `perf/acceptance/run-5ae1joyk/` |
+| product_basics | `9dfd190e2596484a8def34f37cd9b948.log` | `perf/acceptance/run-kdqjb55m/` |
+| native_ui | `e0556929ff8344b09905c0322d8ab5ab.log` | `perf/acceptance/run-8tkc3jsh/` |
+| functionality | `e02263bd16a041b39435e7e31fd1b735.log` | `perf/acceptance/run-japvm1ft/` |
+
+已读取五份 detail 指向的 raw 并逐份比对 SHA256，全部一致；其中 product_basics raw SHA256 为 `1f66d1097f4239905ad30f1324c2cac9ad0063d2ff49646598f50a35eedc0b3d`，其余四份与上表旧轮 raw SHA 相同。product_basics 的 4/8 仍只是四项数据/安装字节未变，不是四项功能执行成功。
+
+本次实读已装 Info.plist、可执行文件和当前回执：已装仍为 `1.0.1 (31)` / `4e05a5408cd4eb66cce14d60080a6a0cf4ddfcd7ea850df0441605a54f56fd6e`，候选仍为 `1.0.1 (33)` / `3030558412e6873d7c58da689b85783e661f99371d010cc462cf161a6fe93035`，回执 SHA256 仍为 `5e46eb4c15519b1badb0a4b2f40e1d45504d16d3f5ee7712fb3a539a873c6e74`。原只读 CLI 对已装返回 `ok: false`、退出 1，原因为“装机可执行文件/版本/图标与构建 receipt 不符”；对 `build/release/水利工具箱.app` 返回 `ok: true`、退出 0，原因为“装机可执行文件、图标与当前构建输入均匹配 receipt”。两包 `codesign --verify --deep --strict` 均退出 0。
+
+共用 `bundle_binding` 的真实产物比较正确；`code_binding` 已消费 `SOP_CODE_BINDING_SHA256` / `SOP_BUILD_CURRENT`，直接 CLI 则复用 Chapter 原生产来源 verifier。此次错误发生在该来源检查前的实际 build 比较，不能归因于验收脚本被计入生产源码。五项入口也不依赖 Finder/Safari 常驻、私有 claims 变量或额外构建锁。无需为此修改实现或验收脚本；不能更换默认验收目标、伪造回执、忽略 build/SHA、改判 75 或手写通过来代替装机。
+
+本次 `chapter jobs --app hydro-mac-oss --active --json` 仍只返回原 deferred 性能作业 `5eeaf3da50104f17beca72bc2b96962a`，无装机作业；未改其状态或调度。它不解释此次五项失败，且不属于此次修复范围。仅补本节，不重跑输入未变的五项失败命令，不追加测试、构建或候选验收。
+
+五项仍受真实已装产物与回执不一致阻塞，本轮明确禁止装机，故无法在授权范围内消除前提。CLI 接手先执行 `chapter sop verify-build-receipt --app hydro-mac-oss --artifact '/Applications/水利工具箱.app' --json` 核实际差异；装机沿 Chapter 的独立既有装机入口处理，不新增用户决策或替代作业。实际对齐后由原 jobs 固定脚本复验，不手写证据。不要使用会执行装机及范围外动作的 `scripts/delivery/resume.py` 接续本轮。
