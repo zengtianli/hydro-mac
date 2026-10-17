@@ -22,7 +22,7 @@ sys.path.insert(0, str(Path.home() / 'Dev/tools/dev/lib/tools/macapp/ios'))
 import sim_lane
 artifact = ROOT / 'build/release/水利工具箱.app'
 receipt = ROOT / 'perf/build-receipt.json'
-patterns = ['Sources/**', 'build.sh', 'scripts/*.py', 'scripts/*.sh', 'scripts/hydromac', 'scripts/accept/*.py', 'cli/src/**', 'cli/data/**', 'cli/Cargo.toml', 'cli/Cargo.lock', 'icon/AppIcon.icns']
+patterns = ['Sources/**', 'build.sh', 'scripts/*.py', 'scripts/*.sh', 'scripts/hydromac', 'cli/src/**', 'cli/data/**', 'cli/Cargo.toml', 'cli/Cargo.lock', 'icon/**']
 
 try:
     recorded = json.loads(receipt.read_text())['source']['files']
