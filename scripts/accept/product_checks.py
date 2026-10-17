@@ -30,6 +30,24 @@ def same(a, b):
     if isinstance(a, list) and isinstance(b, list): return len(a) == len(b) and all(same(x, y) for x, y in zip(a, b))
     return a == b
 
+def registered_product():
+    sys.path.insert(0, str(Path.home() / 'Apps/chapter/engine'))
+    import app_sop
+    return app_sop.load_apps('hydro-mac-oss')[0]
+
+def evidence_output(default):
+    """Worktree code stays isolated; Chapter owns evidence in the registered repo."""
+    out = Path(os.environ.get('SOP_OUT_DIR', str(ROOT / default))).expanduser().resolve()
+    evidence_root = ROOT
+    if not out.is_relative_to(ROOT):
+        if (os.environ.get('SOP_APP_ID') != 'hydro-mac-oss'
+                or Path(os.environ.get('SOP_REPO', '')).resolve() != ROOT):
+            raise ValueError('External evidence requires the Chapter product/worktree contract')
+        evidence_root = Path(registered_product()['repo']).resolve()
+        if not out.is_relative_to(evidence_root):
+            raise ValueError('Evidence must remain in the registered HydroMac product')
+    return out, evidence_root
+
 def code_binding(app, receipt_path):
     """Use Chapter's production binding, including its complete source-set check."""
     digest = os.environ.get('SOP_CODE_BINDING_SHA256')
@@ -41,9 +59,8 @@ def code_binding(app, receipt_path):
                 'detail': 'Chapter SOP_BUILD_CURRENT=' + current}
     # Direct CLI/candidate acceptance has no queue environment. Reuse the same
     # read-only authority; do not maintain another list of non-production paths.
-    sys.path.insert(0, str(Path.home() / 'Apps/chapter/engine'))
+    product = registered_product()
     import app_sop
-    product = app_sop.load_apps('hydro-mac-oss')[0]
     valid, reason = app_sop.verify_build_receipt(product, app, receipt_path=receipt_path, code_only=True)
     _, business = app_sop.business_code_files(product, {})
     return {'sha256': app_sop.digest_value([business]), 'build_current': valid,
@@ -80,8 +97,7 @@ def main(check=None):
     parser.add_argument('--app', type=Path, default=os.environ.get('HYDROMAC_ACCEPT_APP', '/Applications/水利工具箱.app'))
     parser.add_argument('--receipt', type=Path, default=os.environ.get('HYDROMAC_ACCEPT_RECEIPT', str(ROOT / 'perf/build-receipt.json')))
     args = parser.parse_args(); name = args.check
-    out = Path(os.environ.get('SOP_OUT_DIR', str(ROOT / 'build/accept/checks'))).resolve()
-    assert out.is_relative_to(ROOT)
+    out, evidence_root = evidence_output('build/accept/checks')
     run = out / (name + '-' + uuid.uuid4().hex); run.mkdir(parents=True)
     checks, cases, binding, error = {}, [], {}, None
     env = {k: v for k, v in os.environ.items() if k not in ['AMAP_KEY', 'AMAP_API_KEY', 'HYDRO_CLI_PATH'] and not k.startswith(('APP_LIFECYCLE_', 'HYDROMAC_'))}
@@ -168,7 +184,7 @@ def main(check=None):
         'limits': ['Only synthetic samples and isolated files/domains; Amap live success requires the user-supplied service key; offline conversion and missing/blocked-key handling tested.']})
     passed = bool(checks) and all(v is True for v in checks.values())
     write(out / (name + '.detail.json'), {'summary': f'{name}: {sum(v is True for v in checks.values())}/{len(checks)} actual checks',
-        'checks': checks, 'evidence': str(raw.relative_to(ROOT)), 'evidence_sha256': sha(raw), 'method': 'ui_automation' if name == 'native_ui' else 'real_product', 'error': error})
+        'checks': checks, 'evidence': str(raw.relative_to(evidence_root)), 'evidence_sha256': sha(raw), 'method': 'ui_automation' if name == 'native_ui' else 'real_product', 'error': error})
     print(f'{name}: {sum(v is True for v in checks.values())}/{len(checks)}; {error or "completed"}')
     return 0 if passed else 1
 

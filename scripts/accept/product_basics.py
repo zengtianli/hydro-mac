@@ -16,6 +16,8 @@ import sys
 import time
 import uuid
 
+from product_checks import bundle_binding, evidence_output
+
 ROOT = Path(__file__).resolve().parents[2]
 PRODUCT = 'io.github.zengtianli.HydroMac'
 FEATURES = ('settings', 'shortcuts', 'icloud', 'updates')
@@ -66,8 +68,7 @@ def main():
     else:
         spec = json.loads(os.environ['SOP_PRODUCT_BASICS_SPEC'])
     assert spec['app_id'] == os.environ.get('SOP_APP_ID', 'hydro-mac-oss') == 'hydro-mac-oss'
-    out = Path(os.environ.get('SOP_OUT_DIR', str(ROOT / 'perf/acceptance'))).resolve()
-    assert out.is_relative_to(ROOT), 'Evidence must remain in this product'
+    out, evidence_root = evidence_output('perf/acceptance')
     run = out / ('product-basics-' + uuid.uuid4().hex)
     run.mkdir(parents=True)
     suite = 'test.hydromac.basics.' + uuid.uuid4().hex
@@ -82,24 +83,13 @@ def main():
     error = None
     scope = 'installed' if app.is_relative_to(Path('/Applications')) else 'candidate_not_installed'
     try:
-        receipt = json.loads(receipt_path.read_text()); artifact = receipt['artifact']
-        info = plistlib.loads((app / 'Contents/Info.plist').read_bytes())
-        matched = (info['CFBundleIdentifier'] == artifact['bundle_id'] == PRODUCT and info['CFBundleShortVersionString'] == artifact['version']
-                   and str(info['CFBundleVersion']) == str(artifact['build']) and sha(app / artifact['executable']) == artifact['sha256'])
-        # Acceptance, test and measurement inputs do not change the installed product.
-        shipped = {p: h for p, h in receipt['source']['files'].items()
-                   if not p.startswith(('Tests/', 'scripts/accept/', 'scripts/perf/', 'handoffs/', 'perf/'))}
-        source_matches = bool(shipped) and all((ROOT / p).is_file() and sha(ROOT / p) == h for p, h in shipped.items())
-        signed = execute(['codesign', '--verify', '--deep', '--strict', app])
-        (run / 'signature.log').write_text(signed.stdout + signed.stderr)
-        binding = {'scope': scope, 'app': str(app), 'receipt': str(receipt_path), 'receipt_sha256': sha(receipt_path),
-                   'artifact': artifact, 'source_sha256': receipt['source']['sha256'], 'source_commit': receipt['source']['commit'],
-                   'acceptor_sha256': sha(Path(__file__))}
+        binding, info = bundle_binding(app, receipt_path)
+        artifact = binding['artifact']
+        binding.update(scope=scope, receipt=str(receipt_path), acceptor_sha256=sha(Path(__file__)))
         for feature in FEATURES:
-            checks[feature + '.bundle_receipt_matches'] = matched
-            checks[feature + '.current_source_matches'] = source_matches
-            checks[feature + '.signature_valid'] = signed.returncode == 0
-        assert matched and source_matches and signed.returncode == 0, 'Product/source/receipt/signature mismatch: no fixture execution'
+            checks[feature + '.bundle_receipt_matches'] = True
+            checks[feature + '.current_source_matches'] = binding['code_binding']['build_current']
+            checks[feature + '.signature_valid'] = True
         clone = support / 'HydroMac.app'
         shutil.copytree(app, clone, symlinks=True)
         assert sha(clone / artifact['executable']) == artifact['sha256']
@@ -128,8 +118,8 @@ def main():
         report = json.loads((native_out / 'native.json').read_text())
         checks.update(report['checks']); cases.extend(report['cases'])
         for feature in FEATURES: checks[feature + '.native_exit_success'] = native.returncode == 0
-        binding['native'] = {'path': str((native_out / 'native.json').relative_to(ROOT)), 'sha256': sha(native_out / 'native.json')}
-        binding['screenshots'] = [{'path': str((native_out / p).relative_to(ROOT)), 'sha256': sha(native_out / p)} for p in report['screenshots']]
+        binding['native'] = {'path': str((native_out / 'native.json').relative_to(evidence_root)), 'sha256': sha(native_out / 'native.json')}
+        binding['screenshots'] = [{'path': str((native_out / p).relative_to(evidence_root)), 'sha256': sha(native_out / p)} for p in report['screenshots']]
 
         # Public ad-hoc distribution legitimately requires downloading/extracting the App.
         # Exercise that documented manual installation on the real disposable package.
@@ -165,7 +155,9 @@ def main():
         checks['updates.actual_isolated_manual_upgrade_preserves_data'] = upgrade_ok
         checks['updates.data_preservation'] = checks.get('updates.data_preservation') is True and upgrade_ok
     except Exception as exc:
-        error = str(exc)
+        error = f'{type(exc).__name__}: {exc}'
+        if isinstance(exc, subprocess.CalledProcessError) and exc.stderr:
+            error += ': ' + (exc.stderr.decode(errors='replace') if isinstance(exc.stderr, bytes) else exc.stderr).strip()
         for feature in FEATURES: checks[feature + '.execution_completed'] = False
     finally:
         execute(['/usr/bin/defaults', 'delete', suite])
@@ -180,7 +172,7 @@ def main():
         keys = [k for k in checks if k.startswith(feature + '.')]
         required = spec['features'][feature]['required_checks']
         passed = bool(keys) and all(checks[k] is True for k in keys) and all(checks.get(k) is True for k in required)
-        records[feature] = {'result': 'passed' if passed else 'failed', 'method': 'real_product', 'evidence': str(original.relative_to(ROOT)),
+        records[feature] = {'result': 'passed' if passed else 'failed', 'method': 'real_product', 'evidence': str(original.relative_to(evidence_root)),
                             'evidence_sha256': sha(original), 'checks': keys}
     passed = all(r['result'] == 'passed' for r in records.values())
     detail = {'schema_version': 1, 'app_id': 'hydro-mac-oss', 'spec_digest': spec['digest'], 'features': records,
